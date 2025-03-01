@@ -21,8 +21,8 @@ describe('MeetingRoomController (e2e)', () => {
       .send({ name: 'Meeting Room A', capacity: 10 })
       .expect(HttpStatus.CREATED)
       .expect((res) => {
-        expect(res.body.name.value).toBe('Meeting Room A');
-        expect(res.body.capacity.value).toBe(10);
+        expect(res.body.name).toBe('Meeting Room A');
+        expect(res.body.capacity).toBe(10);
       });
   });
 

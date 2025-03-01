@@ -21,7 +21,7 @@ describe('HotDeskController (e2e)', () => {
       .send({ number: 10 })
       .expect(HttpStatus.CREATED)
       .expect((res) => {
-        expect(res.body.number.value).toBe(10);
+        expect(res.body.number).toBe(10);
       });
   });
 

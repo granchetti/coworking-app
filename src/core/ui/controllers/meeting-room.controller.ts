@@ -8,6 +8,7 @@ import {
 import { RegisterMeetingRoomUseCase } from '../../application/use-cases/register-meeting-room.use-case';
 import { InMemoryMeetingRoomRepository } from '../../infrastructure/repositories/inmemory-meeting-room.repository';
 import { DuplicateMeetingRoomException } from '../../domain/exceptions/duplicate-meeting-room.exception';
+import { toMeetingRoomResponseDto } from '../mappers/meeting-room.mapper';
 
 @Controller('meeting-room')
 export class MeetingRoomController {
@@ -24,14 +25,7 @@ export class MeetingRoomController {
   async register(@Body() body: { name: string; capacity: number }) {
     try {
       const meetingRoom = await this.registerMeetingRoomUseCase.execute(body);
-      return {
-        id: { value: meetingRoom.id.getValue() },
-        name: { value: meetingRoom.name.getValue() },
-        capacity: { value: meetingRoom.capacity.getValue() },
-        status: { value: meetingRoom.status.getValue() },
-        createdAt: { date: meetingRoom.createdAt.getValue() },
-        updatedAt: { date: meetingRoom.updatedAt.getValue() },
-      };
+      return toMeetingRoomResponseDto(meetingRoom);
     } catch (error) {
       if (error instanceof DuplicateMeetingRoomException) {
         throw new HttpException(error.message, HttpStatus.CONFLICT);

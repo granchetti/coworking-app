@@ -8,6 +8,7 @@ import {
 import { RegisterHotDeskUseCase } from '../../application/use-cases/register-hotdesk.use-case';
 import { InMemoryHotDeskRepository } from '../../infrastructure/repositories/inmemory-hotdesk.repository';
 import { DuplicateHotDeskException } from '../../domain/exceptions/duplicate-hotdesk.exception';
+import { toHotDeskResponseDto } from '../mappers/hotdesk.mapper';
 
 @Controller('hotdesk')
 export class HotDeskController {
@@ -22,13 +23,7 @@ export class HotDeskController {
   async register(@Body() body: { number: number }) {
     try {
       const hotDesk = await this.registerHotDeskUseCase.execute(body);
-      return {
-        id: { value: hotDesk.id.getValue() },
-        number: { value: hotDesk.number.getValue() },
-        status: { value: hotDesk.status.getValue() },
-        createdAt: { date: hotDesk.createdAt.getValue() },
-        updatedAt: { date: hotDesk.updatedAt.getValue() },
-      };
+      return toHotDeskResponseDto(hotDesk);
     } catch (error) {
       if (error instanceof DuplicateHotDeskException) {
         throw new HttpException(error.message, HttpStatus.CONFLICT);
