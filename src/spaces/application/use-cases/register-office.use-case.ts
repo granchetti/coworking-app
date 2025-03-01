@@ -1,8 +1,8 @@
-import { Office } from 'src/core/domain/entities/office.entity';
-import { IOfficeRepository } from 'src/core/domain/repositories/office.repository.interface';
-import { OfficeNumber } from 'src/core/domain/value_objects/office/office-number.value-object';
-import { DuplicateOfficeException } from 'src/core/domain/exceptions/duplicate-office.exception';
-import { StatusType } from 'src/core/domain/value_objects/shared/status.value-object';
+import { Office } from 'src/spaces/domain/entities/office.entity';
+import { IOfficeRepository } from 'src/spaces/domain/repositories/office.repository.interface';
+import { OfficeNumber } from 'src/spaces/domain/value_objects/office/office-number.value-object';
+import { DuplicateOfficeException } from 'src/spaces/domain/exceptions/duplicate-office.exception';
+import { StatusType } from 'src/spaces/domain/value_objects/shared/status.value-object';
 
 export class RegisterOfficeUseCase {
   constructor(private officeRepository: IOfficeRepository) {}

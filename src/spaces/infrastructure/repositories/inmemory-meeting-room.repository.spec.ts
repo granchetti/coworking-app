@@ -1,4 +1,4 @@
-import { InMemoryMeetingRoomRepository } from '../../infrastructure/repositories/inmemory-meeting-room.repository';
+import { InMemoryMeetingRoomRepository } from './inmemory-meeting-room.repository';
 import { MeetingRoom } from '../../domain/entities/meeting-room.entity';
 import { MeetingRoomName } from '../../domain/value_objects/meeting-room/meeting-room-name.value-object';
 

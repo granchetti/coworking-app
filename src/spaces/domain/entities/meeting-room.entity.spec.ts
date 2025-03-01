@@ -1,4 +1,4 @@
-import { MeetingRoom } from '../../domain/entities/meeting-room.entity';
+import { MeetingRoom } from './meeting-room.entity';
 
 describe('MeetingRoom Entity', () => {
   it('should create a valid MeetingRoom', () => {

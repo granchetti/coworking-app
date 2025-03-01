@@ -1,4 +1,4 @@
-import { RegisterMeetingRoomUseCase } from '../../application/use-cases/register-meeting-room.use-case';
+import { RegisterMeetingRoomUseCase } from './register-meeting-room.use-case';
 import { DuplicateMeetingRoomException } from '../../domain/exceptions/duplicate-meeting-room.exception';
 import { InMemoryMeetingRoomRepository } from '../../infrastructure/repositories/inmemory-meeting-room.repository';
 

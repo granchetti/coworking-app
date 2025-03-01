@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
-import { HotDeskController } from './core/ui/controllers/hotdesk.controller';
-import { MeetingRoomController } from './core/ui/controllers/meeting-room.controller';
-import { OfficeController } from './core/ui/controllers/office.controller';
+import { HotDeskController } from './spaces/ui/controllers/hotdesk.controller';
+import { MeetingRoomController } from './spaces/ui/controllers/meeting-room.controller';
+import { OfficeController } from './spaces/ui/controllers/office.controller';
 
 @Module({
   imports: [],

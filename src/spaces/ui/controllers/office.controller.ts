@@ -5,11 +5,11 @@ import {
   HttpStatus,
   Post,
 } from '@nestjs/common';
-import { RegisterOfficeUseCase } from 'src/core/application/use-cases/register-office.use-case';
-import { InMemoryOfficeRepository } from 'src/core/infrastructure/repositories/inmemory-office.repository';
-import { DuplicateOfficeException } from 'src/core/domain/exceptions/duplicate-office.exception';
+import { RegisterOfficeUseCase } from 'src/spaces/application/use-cases/register-office.use-case';
+import { InMemoryOfficeRepository } from 'src/spaces/infrastructure/repositories/inmemory-office.repository';
+import { DuplicateOfficeException } from 'src/spaces/domain/exceptions/duplicate-office.exception';
 import { toOfficeRoomResponseDto } from '../mappers/office.mapper';
-import { StatusType } from 'src/core/domain/value_objects/shared/status.value-object';
+import { StatusType } from 'src/spaces/domain/value_objects/shared/status.value-object';
 
 @Controller('office')
 export class OfficeController {
