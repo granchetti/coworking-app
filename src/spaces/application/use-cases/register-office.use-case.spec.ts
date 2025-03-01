@@ -1,6 +1,7 @@
 import { RegisterOfficeUseCase } from '../../application/use-cases/register-office.use-case';
 import { InMemoryOfficeRepository } from '../../infrastructure/repositories/inmemory-office.repository';
 import { DuplicateOfficeException } from '../../domain/exceptions/duplicate-office.exception';
+import { InvalidOfficeLeasePeriodException } from '../../domain/exceptions/invalid-office-lease-period.exception';
 
 describe('RegisterOfficeUseCase', () => {
   let repository: InMemoryOfficeRepository;
@@ -38,8 +39,6 @@ describe('RegisterOfficeUseCase', () => {
   it('should throw an error if leasePeriod is less than 12', async () => {
     await expect(
       useCase.execute({ number: 104, leasePeriod: 6 }),
-    ).rejects.toThrow(
-      'Invalid office lease period. The minimum lease period is 12 months.',
-    );
+    ).rejects.toThrow(InvalidOfficeLeasePeriodException);
   });
 });

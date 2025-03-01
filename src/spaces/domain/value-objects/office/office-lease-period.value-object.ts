@@ -1,11 +1,11 @@
+import { InvalidOfficeLeasePeriodException } from '../../exceptions/invalid-office-lease-period.exception';
+
 export class OfficeLeasePeriod {
   private readonly value: number;
 
   constructor(value: number) {
     if (!Number.isInteger(value) || value < 12) {
-      throw new Error(
-        'Invalid office lease period. The minimum lease period is 12 months.',
-      );
+      throw new InvalidOfficeLeasePeriodException();
     }
     this.value = value;
   }
