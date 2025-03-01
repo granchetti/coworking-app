@@ -1,7 +1,7 @@
-import { MeetingRoomName } from '../../domain/value_objects/meeting-room/meeting-room-name.value-object';
+import { MeetingRoomName } from '../../domain/value-objects/meeting-room/meeting-room-name.value-object';
 import { MeetingRoom } from '../../domain/entities/meeting-room.entity';
 import { IMeetingRoomRepository } from '../../domain/repositories/meeting-room.repository.interface';
-import { Uuid } from '../../domain/value_objects/shared/entity-id.value-object';
+import { Uuid } from '../../domain/value-objects/shared/entity-id.value-object';
 
 export class InMemoryMeetingRoomRepository implements IMeetingRoomRepository {
   private meetingRooms: MeetingRoom[] = [];

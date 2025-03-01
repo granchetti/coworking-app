@@ -1,11 +1,11 @@
-import { Uuid } from 'src/spaces/domain/value_objects/shared/entity-id.value-object';
-import { Timestamp } from 'src/spaces/domain/value_objects/shared/timestamp.value-object';
+import { Uuid } from 'src/spaces/domain/value-objects/shared/entity-id.value-object';
+import { Timestamp } from 'src/spaces/domain/value-objects/shared/timestamp.value-object';
 import {
   Status,
   StatusType,
-} from 'src/spaces/domain/value_objects/shared/status.value-object';
-import { OfficeNumber } from 'src/spaces/domain/value_objects/office/office-number.value-object';
-import { OfficeLeasePeriod } from 'src/spaces/domain/value_objects/office/office-lease-period.value-object';
+} from 'src/spaces/domain/value-objects/shared/status.value-object';
+import { OfficeNumber } from 'src/spaces/domain/value-objects/office/office-number.value-object';
+import { OfficeLeasePeriod } from 'src/spaces/domain/value-objects/office/office-lease-period.value-object';
 
 export class Office {
   private readonly _id: Uuid;

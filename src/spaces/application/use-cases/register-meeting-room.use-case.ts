@@ -1,7 +1,7 @@
 import { MeetingRoom } from '../../domain/entities/meeting-room.entity';
 import { DuplicateMeetingRoomException } from '../../domain/exceptions/duplicate-meeting-room.exception';
 import { IMeetingRoomRepository } from '../../domain/repositories/meeting-room.repository.interface';
-import { MeetingRoomName } from '../../domain/value_objects/meeting-room/meeting-room-name.value-object';
+import { MeetingRoomName } from '../../domain/value-objects/meeting-room/meeting-room-name.value-object';
 
 export class RegisterMeetingRoomUseCase {
   constructor(private meetingRoomRepository: IMeetingRoomRepository) {}

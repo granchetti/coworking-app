@@ -1,7 +1,7 @@
-import { HotDeskNumber } from '../value_objects/hotdesk/hotdesk-number.value-object';
-import { Status } from '../value_objects/shared/status.value-object';
-import { Uuid } from '../value_objects/shared/entity-id.value-object';
-import { Timestamp } from '../value_objects/shared/timestamp.value-object';
+import { HotDeskNumber } from '../value-objects/hotdesk/hotdesk-number.value-object';
+import { Status } from '../value-objects/shared/status.value-object';
+import { Uuid } from '../value-objects/shared/entity-id.value-object';
+import { Timestamp } from '../value-objects/shared/timestamp.value-object';
 
 export class HotDesk {
   private readonly _id: Uuid;
