@@ -1,4 +1,4 @@
-import { MeetingRoomName } from '../../domain/value_objects/meeting-room/meeting-room-name.value-object';
+import { MeetingRoomName } from './meeting-room-name.value-object';
 
 describe('MeetingRoomName Value Object', () => {
   it('should create a valid MeetingRoomName', () => {

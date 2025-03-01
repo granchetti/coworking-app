@@ -22,7 +22,13 @@ export class HotDeskController {
   async register(@Body() body: { number: number }) {
     try {
       const hotDesk = await this.registerHotDeskUseCase.execute(body);
-      return hotDesk;
+      return {
+        id: { value: hotDesk.id.getValue() },
+        number: { value: hotDesk.number.getValue() },
+        status: { value: hotDesk.status.getValue() },
+        createdAt: { date: hotDesk.createdAt.getValue() },
+        updatedAt: { date: hotDesk.updatedAt.getValue() },
+      };
     } catch (error) {
       if (error instanceof DuplicateHotDeskException) {
         throw new HttpException(error.message, HttpStatus.CONFLICT);

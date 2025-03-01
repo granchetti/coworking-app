@@ -1,6 +1,6 @@
-import { RegisterMeetingRoomUseCase } from 'src/core/application/use-cases/register-meeting-room.use-case';
-import { DuplicateMeetingRoomException } from 'src/core/domain/exceptions/duplicate-meeting-room.exception';
-import { InMemoryMeetingRoomRepository } from 'src/core/infrastructure/repositories/inmemory-meeting-room.repository';
+import { RegisterMeetingRoomUseCase } from '../../application/use-cases/register-meeting-room.use-case';
+import { DuplicateMeetingRoomException } from '../../domain/exceptions/duplicate-meeting-room.exception';
+import { InMemoryMeetingRoomRepository } from '../../infrastructure/repositories/inmemory-meeting-room.repository';
 
 describe('RegisterMeetingRoomUseCase', () => {
   let repository: InMemoryMeetingRoomRepository;

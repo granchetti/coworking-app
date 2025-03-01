@@ -7,7 +7,7 @@ describe('MeetingRoom Entity', () => {
     expect(meetingRoom.id.getValue()).toBeDefined();
     expect(meetingRoom.name.getValue()).toBe('Conference Room');
     expect(meetingRoom.capacity.getValue()).toBe(20);
-    expect(meetingRoom.status.getValue()).toBe('Active'); // Assuming Status returns 'Active'
+    expect(meetingRoom.status.getValue()).toBe('Active');
     expect(meetingRoom.createdAt.getValue()).toBeInstanceOf(Date);
     expect(meetingRoom.updatedAt.getValue()).toBeInstanceOf(Date);
   });

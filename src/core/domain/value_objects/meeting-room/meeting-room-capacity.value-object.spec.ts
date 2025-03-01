@@ -1,4 +1,4 @@
-import { MeetingRoomCapacity } from '../../domain/value_objects/meeting-room/meeting-room-capacity.value-object';
+import { MeetingRoomCapacity } from './meeting-room-capacity.value-object';
 
 describe('MeetingRoomCapacity Value Object', () => {
   it('should create a valid MeetingRoomCapacity', () => {
