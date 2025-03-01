@@ -1,4 +1,4 @@
-import { Office } from 'src/spaces/domain/entities/office.entity';
+import { Office } from '../../domain/entities/office.entity';
 import { OfficeResponseDto } from '../dtos/office-response.dto';
 
 export function toOfficeRoomResponseDto(office: Office): OfficeResponseDto {

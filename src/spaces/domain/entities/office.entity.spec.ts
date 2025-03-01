@@ -1,72 +1,23 @@
-import { Uuid } from 'src/spaces/domain/value_objects/shared/entity-id.value-object';
-import { Timestamp } from 'src/spaces/domain/value_objects/shared/timestamp.value-object';
-import {
-  Status,
-  StatusType,
-} from 'src/spaces/domain/value_objects/shared/status.value-object';
-import { OfficeNumber } from 'src/spaces/domain/value_objects/office/office-number.value-object';
-import { OfficeLeasePeriod } from 'src/spaces/domain/value_objects/office/office-lease-period.value-object';
+import { Office } from '../../domain/entities/office.entity';
 
-export class Office {
-  private readonly _id: Uuid;
-  private readonly _number: OfficeNumber;
-  private readonly _leasePeriod: OfficeLeasePeriod;
-  private _status: Status;
-  private readonly _createdAt: Timestamp;
-  private _updatedAt: Timestamp;
+describe('Office Entity', () => {
+  it('should create a valid Office with default leasePeriod (12) and status "Active"', () => {
+    const office = Office.create(101);
+    expect(office.number.getValue()).toBe(101);
+    expect(office.leasePeriod.getValue()).toBe(12);
+    expect(office.status.getValue()).toBe('Active');
+    expect(office.createdAt.getValue()).toBeInstanceOf(Date);
+  });
 
-  private constructor(
-    number: OfficeNumber,
-    leasePeriod: OfficeLeasePeriod,
-    status: Status,
-  ) {
-    this._id = new Uuid();
-    this._number = number;
-    this._leasePeriod = leasePeriod;
-    this._status = status;
-    this._createdAt = new Timestamp();
-    this._updatedAt = new Timestamp();
-  }
+  it('should create an Office with given leasePeriod and status', () => {
+    const office = Office.create(102, 24, 'Inactive');
+    expect(office.leasePeriod.getValue()).toBe(24);
+    expect(office.status.getValue()).toBe('Inactive');
+  });
 
-  public static create(
-    number: number,
-    leasePeriod?: number,
-    status?: StatusType,
-  ): Office {
-    const officeNumber = new OfficeNumber(number);
-    const officeLeasePeriod = new OfficeLeasePeriod(
-      leasePeriod !== undefined ? leasePeriod : 12,
+  it('should throw an error if leasePeriod is less than 12', () => {
+    expect(() => Office.create(103, 6)).toThrow(
+      'Invalid office lease period. The minimum lease period is 12 months.',
     );
-    const officeStatus = status ? new Status(status) : Status.active();
-    return new Office(officeNumber, officeLeasePeriod, officeStatus);
-  }
-
-  public get id(): Uuid {
-    return this._id;
-  }
-
-  public get number(): OfficeNumber {
-    return this._number;
-  }
-
-  public get leasePeriod(): OfficeLeasePeriod {
-    return this._leasePeriod;
-  }
-
-  public get status(): Status {
-    return this._status;
-  }
-
-  public get createdAt(): Timestamp {
-    return this._createdAt;
-  }
-
-  public get updatedAt(): Timestamp {
-    return this._updatedAt;
-  }
-
-  public updateStatus(newStatus: Status): void {
-    this._status = newStatus;
-    this._updatedAt = new Timestamp();
-  }
-}
+  });
+});

@@ -1,20 +1,32 @@
-import { Office } from 'src/spaces/domain/entities/office.entity';
-import { IOfficeRepository } from 'src/spaces/domain/repositories/office.repository.interface';
-import { OfficeNumber } from 'src/spaces/domain/value-objects/office/office-number.value-object';
-import { Uuid } from 'src/spaces/domain/value-objects/shared/entity-id.value-object';
+import { InMemoryOfficeRepository } from '../../infrastructure/repositories/inmemory-office.repository';
+import { Office } from '../../domain/entities/office.entity';
+import { OfficeNumber } from '../../domain/value-objects/office/office-number.value-object';
 
-export class InMemoryOfficeRepository implements IOfficeRepository {
-  private offices: Office[] = [];
+describe('InMemoryOfficeRepository', () => {
+  let repository: InMemoryOfficeRepository;
 
-  async findById(id: Uuid): Promise<Office | null> {
-    return this.offices.find((o) => o.id.getValue() === id.getValue()) || null;
-  }
+  beforeEach(() => {
+    repository = new InMemoryOfficeRepository();
+  });
 
-  async findByNumber(number: OfficeNumber): Promise<Office | null> {
-    return this.offices.find((o) => o.number.equals(number)) || null;
-  }
+  it('should save and find an Office by number', async () => {
+    const office = Office.create(105, 24);
+    await repository.save(office);
+    const found = await repository.findByNumber(new OfficeNumber(105));
+    expect(found).toBeDefined();
+    expect(found?.number.getValue()).toBe(105);
+  });
 
-  async save(office: Office): Promise<void> {
-    this.offices.push(office);
-  }
-}
+  it('should return null if no Office is found by number', async () => {
+    const found = await repository.findByNumber(new OfficeNumber(999));
+    expect(found).toBeNull();
+  });
+
+  it('should save and find an Office by id', async () => {
+    const office = Office.create(106, 36);
+    await repository.save(office);
+    const found = await repository.findById(office.id);
+    expect(found).toBeDefined();
+    expect(found?.id.getValue()).toBe(office.id.getValue());
+  });
+});
