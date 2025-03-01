@@ -1,0 +1,9 @@
+import { MeetingRoom } from '../entities/meeting-room.entity';
+import { MeetingRoomName } from '../value_objects/meeting-room/meeting-room-name.value-object';
+import { Uuid } from '../value_objects/shared/entity-id.value-object';
+
+export interface IMeetingRoomRepository {
+  findById(id: Uuid): Promise<MeetingRoom | null>;
+  findByName(name: MeetingRoomName): Promise<MeetingRoom | null>;
+  save(meetingRoom: MeetingRoom): Promise<void>;
+}

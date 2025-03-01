@@ -1,7 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { INestApplication, HttpStatus } from '@nestjs/common';
 import * as request from 'supertest';
-import { AppModule } from 'src/app.module';
+import { AppModule } from '../../src/app.module';
 
 describe('HotDeskController (e2e)', () => {
   let app: INestApplication;
@@ -19,9 +19,9 @@ describe('HotDeskController (e2e)', () => {
     return request(app.getHttpServer())
       .post('/hotdesk/register')
       .send({ number: 10 })
-      .expect(HttpStatus.OK)
+      .expect(HttpStatus.CREATED)
       .expect((res) => {
-        expect(res.body.number).toBe(10);
+        expect(res.body.number.value).toBe(10);
       });
   });
 
@@ -29,7 +29,7 @@ describe('HotDeskController (e2e)', () => {
     await request(app.getHttpServer())
       .post('/hotdesk/register')
       .send({ number: 15 })
-      .expect(HttpStatus.OK);
+      .expect(HttpStatus.CREATED);
 
     await request(app.getHttpServer())
       .post('/hotdesk/register')
