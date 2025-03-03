@@ -1,7 +1,7 @@
 import { MeetingRoomReservation } from '../../domain/entities/meeting-room-reservation.entity';
-import { ReservationDate } from '../../domain/value-objects/reservation/reservation-date.value-object';
-import { ReservationDuration } from '../../domain/value-objects/reservation/reservation-duration.value-object';
-import { ReservationHour } from '../../domain/value-objects/reservation/reservation-hour.value-object';
+import { ReservationDate } from '../../domain/value-objects/reservation-date.value-object';
+import { ReservationDuration } from '../../domain/value-objects/reservation-duration.value-object';
+import { ReservationHour } from '../../domain/value-objects/reservation-hour.value-object';
 import { Uuid } from '../../domain/value-objects/shared/entity-id.value-object';
 import { InMemoryMeetingRoomReservationRepository } from './inmemory-meeting-room-reservation.repository';
 

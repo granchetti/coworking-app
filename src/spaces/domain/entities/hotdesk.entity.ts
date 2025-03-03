@@ -1,4 +1,4 @@
-import { HotDeskNumber } from '../value-objects/hotdesk/hotdesk-number.value-object';
+import { HotDeskNumber } from '../value-objects/hotdesk-number.value-object';
 import { Status } from '../value-objects/shared/status.value-object';
 import { Uuid } from '../value-objects/shared/entity-id.value-object';
 import { Timestamp } from '../value-objects/shared/timestamp.value-object';

@@ -1,6 +1,6 @@
 import { InMemoryMeetingRoomRepository } from './inmemory-meeting-room.repository';
 import { MeetingRoom } from '../../domain/entities/meeting-room.entity';
-import { MeetingRoomName } from '../../domain/value-objects/meeting-room/meeting-room-name.value-object';
+import { MeetingRoomName } from '../../domain/value-objects/meeting-room-name.value-object';
 
 describe('InMemoryMeetingRoomRepository', () => {
   let repository: InMemoryMeetingRoomRepository;

@@ -1,5 +1,5 @@
 import { HotDesk } from '../entities/hotdesk.entity';
-import { HotDeskNumber } from '../value-objects/hotdesk/hotdesk-number.value-object';
+import { HotDeskNumber } from '../value-objects/hotdesk-number.value-object';
 import { Uuid } from '../value-objects/shared/entity-id.value-object';
 
 export interface IHotDeskRepository {

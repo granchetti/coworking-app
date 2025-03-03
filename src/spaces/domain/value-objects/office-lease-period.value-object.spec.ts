@@ -1,4 +1,4 @@
-import { InvalidOfficeLeasePeriodException } from '../../exceptions/invalid-office-lease-period.exception';
+import { InvalidOfficeLeasePeriodException } from '../exceptions/invalid-office-lease-period.exception';
 import { OfficeLeasePeriod } from './office-lease-period.value-object';
 
 describe('OfficeLeasePeriod Value Object', () => {

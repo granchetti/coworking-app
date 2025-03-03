@@ -1,6 +1,6 @@
 import { InMemoryOfficeRepository } from '../../infrastructure/repositories/inmemory-office.repository';
 import { Office } from '../../domain/entities/office.entity';
-import { OfficeNumber } from '../../domain/value-objects/office/office-number.value-object';
+import { OfficeNumber } from '../../domain/value-objects/office-number.value-object';
 
 describe('InMemoryOfficeRepository', () => {
   let repository: InMemoryOfficeRepository;

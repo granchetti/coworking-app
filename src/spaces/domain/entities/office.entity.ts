@@ -4,8 +4,8 @@ import {
   Status,
   StatusType,
 } from '../../domain/value-objects/shared/status.value-object';
-import { OfficeNumber } from '../../domain/value-objects/office/office-number.value-object';
-import { OfficeLeasePeriod } from '../../domain/value-objects/office/office-lease-period.value-object';
+import { OfficeNumber } from '../../domain/value-objects/office-number.value-object';
+import { OfficeLeasePeriod } from '../../domain/value-objects/office-lease-period.value-object';
 
 export class Office {
   private readonly _id: Uuid;

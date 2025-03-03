@@ -1,4 +1,4 @@
-import { ReservationDate } from '../value-objects/reservation/reservation-date.value-object';
+import { ReservationDate } from '../value-objects/reservation-date.value-object';
 import { Uuid } from '../value-objects/shared/entity-id.value-object';
 import { HotDeskReservation } from './hotdesk-reservation.entity';
 

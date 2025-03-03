@@ -1,7 +1,7 @@
 import { IMeetingRoomReservationRepository } from '../../domain/repositories/meeting-room-reservation.repository.interface';
 import { MeetingRoomReservation } from '../../domain/entities/meeting-room-reservation.entity';
 import { Uuid } from '../../domain/value-objects/shared/entity-id.value-object';
-import { ReservationDate } from '../../domain/value-objects/reservation/reservation-date.value-object';
+import { ReservationDate } from '../../domain/value-objects/reservation-date.value-object';
 
 export class InMemoryMeetingRoomReservationRepository
   implements IMeetingRoomReservationRepository

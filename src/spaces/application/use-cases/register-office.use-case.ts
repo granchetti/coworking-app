@@ -1,6 +1,6 @@
 import { Office } from '../../domain/entities/office.entity';
 import { IOfficeRepository } from '../../domain/repositories/office.repository.interface';
-import { OfficeNumber } from '../../domain/value-objects/office/office-number.value-object';
+import { OfficeNumber } from '../../domain/value-objects/office-number.value-object';
 import { DuplicateOfficeException } from '../../domain/exceptions/duplicate-office.exception';
 import { StatusType } from '../../domain/value-objects/shared/status.value-object';
 

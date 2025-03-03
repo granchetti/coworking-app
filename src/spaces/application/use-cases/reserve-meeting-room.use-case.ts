@@ -2,9 +2,9 @@ import { MeetingRoomReservation } from '../../domain/entities/meeting-room-reser
 import { IMeetingRoomReservationRepository } from '../../domain/repositories/meeting-room-reservation.repository.interface';
 import { IMeetingRoomRepository } from '../../domain/repositories/meeting-room.repository.interface';
 import { InMemoryHotDeskRepository } from '../../infrastructure/repositories/inmemory-hotdesk.repository';
-import { ReservationDate } from '../../domain/value-objects/reservation/reservation-date.value-object';
-import { ReservationHour } from '../../domain/value-objects/reservation/reservation-hour.value-object';
-import { ReservationDuration } from '../../domain/value-objects/reservation/reservation-duration.value-object';
+import { ReservationDate } from '../../domain/value-objects/reservation-date.value-object';
+import { ReservationHour } from '../../domain/value-objects/reservation-hour.value-object';
+import { ReservationDuration } from '../../domain/value-objects/reservation-duration.value-object';
 import { Uuid } from '../../domain/value-objects/shared/entity-id.value-object';
 import { MeetingRoomReservationValidationService } from '../../domain/services/meeting-room-reservation-validation.service';
 import { HotDeskAssignmentService } from '../../domain/services/hotdesk-assignment.service';

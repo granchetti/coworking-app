@@ -1,6 +1,6 @@
-import { ReservationDate } from '../value-objects/reservation/reservation-date.value-object';
-import { ReservationDuration } from '../value-objects/reservation/reservation-duration.value-object';
-import { ReservationHour } from '../value-objects/reservation/reservation-hour.value-object';
+import { ReservationDate } from '../value-objects/reservation-date.value-object';
+import { ReservationDuration } from '../value-objects/reservation-duration.value-object';
+import { ReservationHour } from '../value-objects/reservation-hour.value-object';
 import { MeetingRoomReservationValidationService } from './meeting-room-reservation-validation.service';
 
 describe('MeetingRoomReservationValidationService', () => {

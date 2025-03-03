@@ -1,6 +1,6 @@
 import { InMemoryHotDeskRepository } from './inmemory-hotdesk.repository';
 import { HotDesk } from '../../domain/entities/hotdesk.entity';
-import { HotDeskNumber } from '../../domain/value-objects/hotdesk/hotdesk-number.value-object';
+import { HotDeskNumber } from '../../domain/value-objects/hotdesk-number.value-object';
 
 describe('InMemoryHotDeskRepository', () => {
   let repository: InMemoryHotDeskRepository;

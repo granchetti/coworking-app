@@ -1,4 +1,4 @@
-import { InvalidOfficeLeasePeriodException } from '../../exceptions/invalid-office-lease-period.exception';
+import { InvalidOfficeLeasePeriodException } from '../exceptions/invalid-office-lease-period.exception';
 
 export class OfficeLeasePeriod {
   private readonly value: number;

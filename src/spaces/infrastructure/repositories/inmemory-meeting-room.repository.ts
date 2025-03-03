@@ -1,4 +1,4 @@
-import { MeetingRoomName } from '../../domain/value-objects/meeting-room/meeting-room-name.value-object';
+import { MeetingRoomName } from '../../domain/value-objects/meeting-room-name.value-object';
 import { MeetingRoom } from '../../domain/entities/meeting-room.entity';
 import { IMeetingRoomRepository } from '../../domain/repositories/meeting-room.repository.interface';
 import { Uuid } from '../../domain/value-objects/shared/entity-id.value-object';

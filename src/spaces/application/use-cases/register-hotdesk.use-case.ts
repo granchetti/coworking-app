@@ -1,7 +1,7 @@
 import { DuplicateHotDeskException } from '../../domain/exceptions/duplicate-hotdesk.exception';
 import { HotDesk } from '../../domain/entities/hotdesk.entity';
 import { IHotDeskRepository } from '../../domain/repositories/hotdesk.repository.interface';
-import { HotDeskNumber } from '../../domain/value-objects/hotdesk/hotdesk-number.value-object';
+import { HotDeskNumber } from '../../domain/value-objects/hotdesk-number.value-object';
 
 export class RegisterHotDeskUseCase {
   constructor(private hotDeskRepository: IHotDeskRepository) {}
