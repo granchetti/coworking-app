@@ -4,17 +4,11 @@
 
 This project is a coworking space management application built with [Nest](https://github.com/nestjs/nest) framework. It provides functionalities for hot desk and meeting room reservations, as well as membership management for users. The application follows Domain-Driven Design (DDD) principles, organizing code into subdomains such as Spaces.
 
-## Project installation
+## Installation
 
 ```bash
 $ git clone https://github.com/granchetti/coworking-app.git
 $ cd coworking-app
-$ npm install
-```
-
-## Project setup
-
-```bash
 $ npm install
 ```
 
