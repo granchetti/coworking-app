@@ -3,22 +3,12 @@ import { HotDeskReservation } from '../../domain/entities/hotdesk-reservation.en
 import { IHotDeskReservationRepository } from '../../domain/repositories/hotdesk-reservation.repository.interface';
 import { ReservationDate } from '../../domain/value-objects/reservation/reservation-date.value-object';
 import { Uuid } from '../../domain/value-objects/shared/entity-id.value-object';
-
-// Simulated call to Membership bounded context
-interface MembershipData {
-  membershipId: string;
-  remainingCredits: number;
-}
-async function getMembershipData(
-  userId: string,
-  date: string,
-): Promise<MembershipData> {
-  return { membershipId: 'dummy-membership-id', remainingCredits: 5 };
-}
+import { IMembershipService } from '../../domain/ports/membership.service.interface';
 
 export class ReserveHotDeskUseCase {
   constructor(
     private hotDeskReservationRepository: IHotDeskReservationRepository,
+    private membershipService: IMembershipService,
   ) {}
 
   public async execute(input: {
@@ -41,7 +31,10 @@ export class ReserveHotDeskUseCase {
       }
     }
 
-    const membershipData = await getMembershipData(input.userId, input.date);
+    const membershipData = await this.membershipService.getMembershipData(
+      input.userId,
+      input.date,
+    );
     const includedInMembership = membershipData.remainingCredits > 0;
 
     const reservation = HotDeskReservation.create(

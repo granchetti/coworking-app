@@ -15,6 +15,7 @@ import { ReserveHotDeskUseCase } from '../../application/use-cases/reserve-hotde
 import { HotDesk } from '../../domain/entities/hotdesk.entity';
 import { InMemoryHotDeskReservationRepository } from '../../infrastructure/repositories/inmemory-hotdesk-reservation.repository';
 import { DuplicateHotDeskReservationException } from '../../domain/exceptions/duplicate-hotdesk-reservation.exception';
+import { MembershipServiceAdapter } from '../../infrastructure/adapters/membership.service.adapter';
 
 @Controller('hotdesks')
 export class HotDeskController {
@@ -28,6 +29,7 @@ export class HotDeskController {
     this.registerHotDeskUseCase = new RegisterHotDeskUseCase(repository);
     this.reserveHotDeskUseCase = new ReserveHotDeskUseCase(
       new InMemoryHotDeskReservationRepository(),
+      new MembershipServiceAdapter(),
     );
   }
 

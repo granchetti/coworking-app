@@ -1,14 +1,30 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+import { IMembershipService } from 'src/spaces/domain/ports/membership.service.interface';
 import { Uuid } from '../../domain/value-objects/shared/entity-id.value-object';
 import { InMemoryHotDeskReservationRepository } from '../../infrastructure/repositories/inmemory-hotdesk-reservation.repository';
 import { ReserveHotDeskUseCase } from './reserve-hotdesk.use-case';
 
+class FakeMembershipService implements IMembershipService {
+  async getMembershipData(
+    _userId: string,
+    _date: string,
+  ): Promise<{ membershipId: string; remainingCredits: number }> {
+    return { membershipId: 'dummy-membership-id', remainingCredits: 5 };
+  }
+}
+
 describe('ReserveHotDeskUseCase', () => {
   let hotDeskReservationRepository: InMemoryHotDeskReservationRepository;
   let useCase: ReserveHotDeskUseCase;
+  let membershipService: FakeMembershipService;
 
   beforeEach(() => {
     hotDeskReservationRepository = new InMemoryHotDeskReservationRepository();
-    useCase = new ReserveHotDeskUseCase(hotDeskReservationRepository);
+    membershipService = new FakeMembershipService();
+    useCase = new ReserveHotDeskUseCase(
+      hotDeskReservationRepository,
+      membershipService,
+    );
   });
 
   it('should reserve a hot desk successfully when valid data is provided', async () => {

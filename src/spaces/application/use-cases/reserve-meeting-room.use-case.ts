@@ -23,9 +23,9 @@ export class ReserveMeetingRoomUseCase {
 
   public async execute(input: {
     meetingRoomId: string;
-    date: string; // Format: YYYY-MM-DD
-    hour: number; // Integer between 0 and 23
-    duration: number; // Integer between 1 and 12
+    date: string;
+    hour: number;
+    duration: number;
     userId: string;
   }): Promise<MeetingRoomReservation> {
     if (
@@ -76,7 +76,6 @@ export class ReserveMeetingRoomUseCase {
       reservationDuration,
     );
 
-    // Intentar asignar un HotDesk de cortesía.
     const complimentaryHotDeskId =
       await this.hotDeskAssignmentService.assignHotDesk(
         new Uuid(input.userId),

@@ -23,7 +23,6 @@ describe('MeetingRoomReservationValidationService', () => {
   });
 
   it('should throw error for overlapping reservations', () => {
-    // Simula una reserva existente de 10 a 12.
     const existingReservations = [
       { hour: 10, duration: 2, status: { getValue: () => 'Active' } },
     ];

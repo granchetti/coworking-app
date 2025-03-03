@@ -51,6 +51,4 @@ describe('ReserveMeetingRoomUseCase', () => {
     expect(reservation.hour.getValue()).toBe(10);
     expect(reservation.duration.getValue()).toBe(2);
   });
-
-  // Agregar tests para casos de error: sala no encontrada, solapamiento, hora inválida para hoy, etc.
 });
