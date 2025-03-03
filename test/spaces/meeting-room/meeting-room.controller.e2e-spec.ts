@@ -15,9 +15,9 @@ describe('MeetingRoomController (e2e)', () => {
     await app.init();
   });
 
-  it('/meeting-room/register (POST) - registration successful', async () => {
+  it('/meeting-rooms/register (POST) - registration successful', async () => {
     await request(app.getHttpServer())
-      .post('/meeting-room/register')
+      .post('/meeting-rooms/register')
       .send({ name: 'Meeting Room A', capacity: 10 })
       .expect(HttpStatus.CREATED)
       .expect((res) => {
@@ -26,26 +26,26 @@ describe('MeetingRoomController (e2e)', () => {
       });
   });
 
-  it('/meeting-room/register (POST) - duplicate name error', async () => {
+  it('/meeting-rooms/register (POST) - duplicate name error', async () => {
     await request(app.getHttpServer())
-      .post('/meeting-room/register')
+      .post('/meeting-rooms/register')
       .send({ name: 'Meeting Room B', capacity: 20 })
       .expect(HttpStatus.CREATED);
 
     await request(app.getHttpServer())
-      .post('/meeting-room/register')
+      .post('/meeting-rooms/register')
       .send({ name: 'Meeting Room B', capacity: 20 })
       .expect(HttpStatus.CONFLICT);
   });
 
-  it('/meeting-room/register (POST) - invalid data error', async () => {
+  it('/meeting-rooms/register (POST) - invalid data error', async () => {
     await request(app.getHttpServer())
-      .post('/meeting-room/register')
+      .post('/meeting-rooms/register')
       .send({ name: '', capacity: 10 })
       .expect(HttpStatus.BAD_REQUEST);
 
     await request(app.getHttpServer())
-      .post('/meeting-room/register')
+      .post('/meeting-rooms/register')
       .send({ name: 'Room Invalid', capacity: 0 })
       .expect(HttpStatus.BAD_REQUEST);
   });

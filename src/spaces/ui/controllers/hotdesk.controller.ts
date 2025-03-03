@@ -14,6 +14,7 @@ import { toHotDeskReservationResponseDto } from '../mappers/hotdesk-reservation.
 import { ReserveHotDeskUseCase } from '../../application/use-cases/reserve-hotdesk.use-case';
 import { HotDesk } from '../../domain/entities/hotdesk.entity';
 import { InMemoryHotDeskReservationRepository } from '../../infrastructure/repositories/inmemory-hotdesk-reservation.repository';
+import { DuplicateHotDeskReservationException } from '../../domain/exceptions/duplicate-hotdesk-reservation.exception';
 
 @Controller('hotdesks')
 export class HotDeskController {
@@ -62,6 +63,9 @@ export class HotDeskController {
       const reservation = await this.reserveHotDeskUseCase.execute(body);
       return toHotDeskReservationResponseDto(reservation);
     } catch (error) {
+      if (error instanceof DuplicateHotDeskReservationException) {
+        throw new HttpException(error.message, HttpStatus.CONFLICT);
+      }
       throw new HttpException(
         error.message,
         error.code || HttpStatus.INTERNAL_SERVER_ERROR,

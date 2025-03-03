@@ -1,3 +1,4 @@
+import { DuplicateHotDeskReservationException } from '../../domain/exceptions/duplicate-hotdesk-reservation.exception';
 import { HotDeskReservation } from '../../domain/entities/hotdesk-reservation.entity';
 import { IHotDeskReservationRepository } from '../../domain/repositories/hotdesk-reservation.repository.interface';
 import { ReservationDate } from '../../domain/value-objects/reservation/reservation-date.value-object';
@@ -35,9 +36,9 @@ export class ReserveHotDeskUseCase {
       date,
     );
     if (existing) {
-      throw new Error(
-        'User already has a hotdesk reservation for the specified date',
-      );
+      if (existing) {
+        throw new DuplicateHotDeskReservationException();
+      }
     }
 
     const membershipData = await getMembershipData(input.userId, input.date);

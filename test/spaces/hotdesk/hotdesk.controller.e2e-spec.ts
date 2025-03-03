@@ -15,9 +15,9 @@ describe('HotDeskController (e2e)', () => {
     await app.init();
   });
 
-  it('/hotdesk/register (POST) - registration successful', () => {
+  it('/hotdesks/register (POST) - registration successful', () => {
     return request(app.getHttpServer())
-      .post('/hotdesk/register')
+      .post('/hotdesks/register')
       .send({ number: 10 })
       .expect(HttpStatus.CREATED)
       .expect((res) => {
@@ -25,21 +25,21 @@ describe('HotDeskController (e2e)', () => {
       });
   });
 
-  it('/hotdesk/register (POST) - duplicate number error', async () => {
+  it('/hotdesks/register (POST) - duplicate number error', async () => {
     await request(app.getHttpServer())
-      .post('/hotdesk/register')
+      .post('/hotdesks/register')
       .send({ number: 15 })
       .expect(HttpStatus.CREATED);
 
     await request(app.getHttpServer())
-      .post('/hotdesk/register')
+      .post('/hotdesks/register')
       .send({ number: 15 })
       .expect(HttpStatus.CONFLICT);
   });
 
-  it('/hotdesk/register (POST) - Invalid number error', () => {
+  it('/hotdesks/register (POST) - Invalid number error', () => {
     return request(app.getHttpServer())
-      .post('/hotdesk/register')
+      .post('/hotdesks/register')
       .send({ number: 0 })
       .expect(HttpStatus.BAD_REQUEST);
   });
