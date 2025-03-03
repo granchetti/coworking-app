@@ -1,4 +1,4 @@
-import { HotDeskReservation } from 'src/spaces/domain/entities/hotdesk-reservation.entity';
+import { HotDeskReservation } from '../../domain/entities/hotdesk-reservation.entity';
 import { HotDeskReservationResponseDto } from '../dtos/hotdesk-reservation-response.dto';
 
 export function toHotDeskReservationResponseDto(

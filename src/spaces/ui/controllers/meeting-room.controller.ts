@@ -15,7 +15,7 @@ import { InMemoryHotDeskRepository } from '../../infrastructure/repositories/inm
 import { DuplicateMeetingRoomException } from '../../domain/exceptions/duplicate-meeting-room.exception';
 import { toMeetingRoomResponseDto } from '../mappers/meeting-room.mapper';
 import { toMeetingRoomReservationResponseDto } from '../mappers/meeting-room-reservation.mapper';
-import { MeetingRoom } from 'src/spaces/domain/entities/meeting-room.entity';
+import { MeetingRoom } from '../../domain/entities/meeting-room.entity';
 
 @Controller('meeting-rooms')
 export class MeetingRoomController {

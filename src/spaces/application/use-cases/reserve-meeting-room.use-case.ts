@@ -1,7 +1,6 @@
 import { MeetingRoomReservation } from '../../domain/entities/meeting-room-reservation.entity';
 import { IMeetingRoomReservationRepository } from '../../domain/repositories/meeting-room-reservation.repository.interface';
 import { IMeetingRoomRepository } from '../../domain/repositories/meeting-room.repository.interface';
-import { IHotDeskReservationRepository } from '../../domain/repositories/hotdesk-reservation.repository.interface';
 import { InMemoryHotDeskRepository } from '../../infrastructure/repositories/inmemory-hotdesk.repository';
 import { ReservationDate } from '../../domain/value-objects/reservation/reservation-date.value-object';
 import { ReservationHour } from '../../domain/value-objects/reservation/reservation-hour.value-object';
@@ -9,6 +8,7 @@ import { ReservationDuration } from '../../domain/value-objects/reservation/rese
 import { Uuid } from '../../domain/value-objects/shared/entity-id.value-object';
 import { MeetingRoomReservationValidationService } from '../../domain/services/meeting-room-reservation-validation.service';
 import { HotDeskAssignmentService } from '../../domain/services/hotdesk-assignment.service';
+import { InMemoryHotDeskReservationRepository } from '../../infrastructure/repositories/inmemory-hotdesk-reservation.repository';
 
 export class ReserveMeetingRoomUseCase {
   private validationService = new MeetingRoomReservationValidationService();
@@ -17,7 +17,7 @@ export class ReserveMeetingRoomUseCase {
   constructor(
     private meetingRoomRepository: IMeetingRoomRepository,
     private meetingRoomReservationRepository: IMeetingRoomReservationRepository,
-    private hotDeskReservationRepository: IHotDeskReservationRepository,
+    private hotDeskReservationRepository: InMemoryHotDeskReservationRepository,
     private hotDeskRepository: InMemoryHotDeskRepository,
   ) {}
 

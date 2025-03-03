@@ -11,9 +11,9 @@ import { InMemoryHotDeskRepository } from '../../infrastructure/repositories/inm
 import { DuplicateHotDeskException } from '../../domain/exceptions/duplicate-hotdesk.exception';
 import { toHotDeskResponseDto } from '../mappers/hotdesk.mapper';
 import { toHotDeskReservationResponseDto } from '../mappers/hotdesk-reservation.mapper';
-import { ReserveHotDeskUseCase } from 'src/spaces/application/use-cases/reserve-hotdesk.use-case';
-import { HotDesk } from 'src/spaces/domain/entities/hotdesk.entity';
-import { InMemoryHotDeskReservationRepository } from 'src/spaces/infrastructure/repositories/inmemory-hotdesk-reservation.repository';
+import { ReserveHotDeskUseCase } from '../../application/use-cases/reserve-hotdesk.use-case';
+import { HotDesk } from '../../domain/entities/hotdesk.entity';
+import { InMemoryHotDeskReservationRepository } from '../../infrastructure/repositories/inmemory-hotdesk-reservation.repository';
 
 @Controller('hotdesks')
 export class HotDeskController {

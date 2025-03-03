@@ -6,7 +6,7 @@ export class ReservationDate {
       throw new Error('Invalid date format. Expected YYYY-MM-DD');
     }
     const dateObj = new Date(value);
-    if (isNaN(dateObj.getTime())) {
+    if (dateObj.toISOString().slice(0, 10) !== value) {
       throw new Error('Invalid date');
     }
     this.value = value;

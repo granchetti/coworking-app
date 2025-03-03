@@ -1,4 +1,4 @@
-import { MeetingRoomReservation } from 'src/spaces/domain/entities/meeting-room-reservation.entity';
+import { MeetingRoomReservation } from '../../domain/entities/meeting-room-reservation.entity';
 import { MeetingRoomReservationResponseDto } from '../dtos/meeting-room-reservation-response.dto';
 
 export function toMeetingRoomReservationResponseDto(

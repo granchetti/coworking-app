@@ -3,6 +3,7 @@ import { HotDeskNumber } from '../value-objects/hotdesk/hotdesk-number.value-obj
 import { Uuid } from '../value-objects/shared/entity-id.value-object';
 
 export interface IHotDeskRepository {
+  getAll(): Promise<HotDesk[]>;
   findById(id: Uuid): Promise<HotDesk | null>;
   findByNumber(number: HotDeskNumber): Promise<HotDesk | null>;
   save(hotDesk: HotDesk): Promise<void>;

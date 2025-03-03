@@ -1,13 +1,13 @@
-import { InMemoryHotDeskRepository } from '../../infrastructure/repositories/inmemory-hotdesk.repository';
+import { IHotDeskRepository } from '../../domain/repositories/hotdesk.repository.interface';
+import { IHotDeskReservationRepository } from '../../domain/repositories/hotdesk-reservation.repository.interface';
 import { ReservationDate } from '../value-objects/reservation/reservation-date.value-object';
 import { Uuid } from '../value-objects/shared/entity-id.value-object';
-import { IHotDeskReservationRepository } from '../repositories/hotdesk-reservation.repository.interface';
 
 export class HotDeskAssignmentService {
   public async assignHotDesk(
     userId: Uuid,
     date: ReservationDate,
-    hotDeskRepository: InMemoryHotDeskRepository,
+    hotDeskRepository: IHotDeskRepository,
     hotDeskReservationRepository: IHotDeskReservationRepository,
   ): Promise<Uuid | undefined> {
     const existing = await hotDeskReservationRepository.findByUserAndDate(
