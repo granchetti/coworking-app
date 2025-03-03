@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Get,
   HttpException,
   HttpStatus,
   Post,
@@ -9,14 +10,34 @@ import { RegisterHotDeskUseCase } from '../../application/use-cases/register-hot
 import { InMemoryHotDeskRepository } from '../../infrastructure/repositories/inmemory-hotdesk.repository';
 import { DuplicateHotDeskException } from '../../domain/exceptions/duplicate-hotdesk.exception';
 import { toHotDeskResponseDto } from '../mappers/hotdesk.mapper';
+import { toHotDeskReservationResponseDto } from '../mappers/hotdesk-reservation.mapper';
+import { ReserveHotDeskUseCase } from 'src/spaces/application/use-cases/reserve-hotdesk.use-case';
+import { HotDesk } from 'src/spaces/domain/entities/hotdesk.entity';
+import { InMemoryHotDeskReservationRepository } from 'src/spaces/infrastructure/repositories/inmemory-hotdesk-reservation.repository';
 
-@Controller('hotdesk')
+@Controller('hotdesks')
 export class HotDeskController {
   private readonly registerHotDeskUseCase: RegisterHotDeskUseCase;
+  private readonly hotDeskRepository: InMemoryHotDeskRepository;
+  private readonly reserveHotDeskUseCase: ReserveHotDeskUseCase;
 
   constructor() {
     const repository = new InMemoryHotDeskRepository();
+    this.hotDeskRepository = repository;
     this.registerHotDeskUseCase = new RegisterHotDeskUseCase(repository);
+    this.reserveHotDeskUseCase = new ReserveHotDeskUseCase(
+      new InMemoryHotDeskReservationRepository(),
+    );
+  }
+
+  @Get()
+  async findAll() {
+    try {
+      const hotDesks = await this.hotDeskRepository.getAll();
+      return hotDesks.map((hotDesk: HotDesk) => toHotDeskResponseDto(hotDesk));
+    } catch (error) {
+      throw new HttpException(error.message, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
   }
 
   @Post('register')
@@ -32,6 +53,19 @@ export class HotDeskController {
         throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
       }
       throw new HttpException(error.message, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+  }
+
+  @Post('reserve')
+  async reserve(@Body() body: { userId: string; date: string }) {
+    try {
+      const reservation = await this.reserveHotDeskUseCase.execute(body);
+      return toHotDeskReservationResponseDto(reservation);
+    } catch (error) {
+      throw new HttpException(
+        error.message,
+        error.code || HttpStatus.INTERNAL_SERVER_ERROR,
+      );
     }
   }
 }

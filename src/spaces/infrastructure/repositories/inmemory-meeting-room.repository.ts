@@ -16,6 +16,10 @@ export class InMemoryMeetingRoomRepository implements IMeetingRoomRepository {
     return this.meetingRooms.find((mr) => mr.name.equals(name)) || null;
   }
 
+  async getAll(): Promise<MeetingRoom[]> {
+    return this.meetingRooms;
+  }
+
   async save(meetingRoom: MeetingRoom): Promise<void> {
     this.meetingRooms.push(meetingRoom);
   }

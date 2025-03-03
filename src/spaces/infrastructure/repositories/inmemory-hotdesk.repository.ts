@@ -16,6 +16,10 @@ export class InMemoryHotDeskRepository implements IHotDeskRepository {
     return this.hotDesks.find((hd) => hd.number.equals(number)) || null;
   }
 
+  async getAll(): Promise<HotDesk[]> {
+    return this.hotDesks;
+  }
+
   async save(hotDesk: HotDesk): Promise<void> {
     this.hotDesks.push(hotDesk);
   }
