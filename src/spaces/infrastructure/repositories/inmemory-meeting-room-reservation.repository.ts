@@ -21,7 +21,7 @@ export class InMemoryMeetingRoomReservationRepository
     return this.reservations.filter(
       (r) =>
         r.meetingRoomId.getValue() === meetingRoomId.getValue() &&
-        r.date === date,
+        r.date.getValue() === date.getValue(),
     );
   }
 

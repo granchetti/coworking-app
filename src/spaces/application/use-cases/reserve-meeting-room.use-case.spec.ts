@@ -21,12 +21,10 @@ describe('ReserveMeetingRoomUseCase', () => {
     hotDeskReservationRepository = new InMemoryHotDeskReservationRepository();
     hotDeskRepository = new InMemoryHotDeskRepository();
 
-    // Semilla una Meeting Room
     const meetingRoom = MeetingRoom.create('Meeting Room A', 20);
     await meetingRoomRepository.save(meetingRoom);
 
-    // Semilla un HotDesk
-    const hotDesk = HotDesk.create(1); // O como esté implementado tu método de creación
+    const hotDesk = HotDesk.create(1);
     await hotDeskRepository.save(hotDesk);
 
     useCase = new ReserveMeetingRoomUseCase(
