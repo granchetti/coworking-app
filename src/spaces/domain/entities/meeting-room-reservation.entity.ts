@@ -1,4 +1,3 @@
-// ../../domain/entities/meeting-room-reservation.entity.ts
 import { ReservationDate } from '../value-objects/reservation/reservation-date.value-object';
 import { ReservationDuration } from '../value-objects/reservation/reservation-duration.value-object';
 import { ReservationHour } from '../value-objects/reservation/reservation-hour.value-object';
@@ -9,8 +8,8 @@ import { Reservation } from './reservation.entity';
 
 export class MeetingRoomReservation extends Reservation {
   private readonly _meetingRoomId: Uuid;
-  private readonly _hour: ReservationHour; // entre 0 y 23
-  private readonly _duration: ReservationDuration; // entre 1 y 12
+  private readonly _hour: ReservationHour;
+  private readonly _duration: ReservationDuration;
   private _complimentaryHotDeskId?: Uuid;
 
   private constructor(

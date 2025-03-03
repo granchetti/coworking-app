@@ -10,7 +10,6 @@ export class HotDeskAssignmentService {
     hotDeskRepository: InMemoryHotDeskRepository,
     hotDeskReservationRepository: IHotDeskReservationRepository,
   ): Promise<Uuid | undefined> {
-    // Verificar si el usuario ya tiene una reserva de hot desk para esa fecha.
     const existing = await hotDeskReservationRepository.findByUserAndDate(
       userId,
       date,
@@ -18,7 +17,6 @@ export class HotDeskAssignmentService {
     if (existing) {
       return undefined;
     }
-    // Si no tiene, se obtiene la lista de hot desks y se asigna el primero disponible.
     const hotDesks = await hotDeskRepository.getAll();
     return hotDesks.length > 0 ? hotDesks[0].id : undefined;
   }
