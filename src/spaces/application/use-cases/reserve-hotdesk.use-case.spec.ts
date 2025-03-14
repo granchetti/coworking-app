@@ -1,8 +1,11 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { IMembershipService } from 'src/spaces/domain/ports/membership.service.interface';
-import { Uuid } from '../../../common/value-objects/entity-id.value-object';
-import { InMemoryHotDeskReservationRepository } from '../../infrastructure/repositories/inmemory-hotdesk-reservation.repository';
 import { ReserveHotDeskUseCase } from './reserve-hotdesk.use-case';
+import { InMemoryHotDeskReservationRepository } from '../../infrastructure/repositories/inmemory-hotdesk-reservation.repository';
+import { DuplicateHotDeskReservationException } from '../../domain/exceptions/duplicate-hotdesk-reservation.exception';
+import { Uuid } from '../../../common/value-objects/entity-id.value-object';
+import { ReservationDate } from '../../domain/value-objects/reservation-date.value-object';
+import { ReserveHotDeskCommand } from '../commands/reserve-hotdesk.command';
+import { IMembershipService } from '../../domain/ports/membership.service.interface';
 
 class FakeMembershipService implements IMembershipService {
   async getMembershipData(
@@ -15,8 +18,8 @@ class FakeMembershipService implements IMembershipService {
 
 describe('ReserveHotDeskUseCase', () => {
   let hotDeskReservationRepository: InMemoryHotDeskReservationRepository;
-  let useCase: ReserveHotDeskUseCase;
   let membershipService: FakeMembershipService;
+  let useCase: ReserveHotDeskUseCase;
 
   beforeEach(() => {
     hotDeskReservationRepository = new InMemoryHotDeskReservationRepository();
@@ -28,23 +31,25 @@ describe('ReserveHotDeskUseCase', () => {
   });
 
   it('should reserve a hot desk successfully when valid data is provided', async () => {
-    const input = {
-      userId: new Uuid().getValue(),
-      date: '2099-12-31',
-    };
-    const reservation = await useCase.execute(input);
-    expect(reservation.userId.getValue()).toBe(input.userId);
-    expect(reservation.date.getValue()).toBe('2099-12-31');
+    const command = new ReserveHotDeskCommand(
+      new Uuid('00000000-0000-0000-0000-000000000001'),
+      new ReservationDate('2099-12-31'),
+    );
+    const reservation = await useCase.execute(command);
+    expect(reservation.userId.getValue()).toBe(command.userId.getValue());
+    expect(reservation.date.getValue()).toBe(command.date.getValue());
     expect(reservation.status.getValue()).toBe('Active');
     expect(reservation.includedInMembership).toBe(true);
   });
 
   it('should throw an error if the user already has a hot desk reservation for that date', async () => {
-    const userId = new Uuid().getValue();
-    const input = { userId, date: '2099-12-31' };
-    await useCase.execute(input);
-    await expect(useCase.execute(input)).rejects.toThrow(
-      'User already has a hotdesk reservation for the specified date',
+    const command = new ReserveHotDeskCommand(
+      new Uuid('00000000-0000-0000-0000-000000000002'),
+      new ReservationDate('2099-12-31'),
+    );
+    await useCase.execute(command);
+    await expect(useCase.execute(command)).rejects.toThrow(
+      DuplicateHotDeskReservationException,
     );
   });
 });

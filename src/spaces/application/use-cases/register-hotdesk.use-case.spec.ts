@@ -1,5 +1,6 @@
 import { RegisterHotDeskUseCase } from './register-hotdesk.use-case';
 import { InMemoryHotDeskRepository } from '../../infrastructure/repositories/inmemory-hotdesk.repository';
+import { RegisterHotDeskCommand } from '../commands/register-hotdesk.command';
 
 describe('RegisterHotDeskUseCase', () => {
   let repository: InMemoryHotDeskRepository;
@@ -11,12 +12,14 @@ describe('RegisterHotDeskUseCase', () => {
   });
 
   it('should register a HotDesk with a valid number', async () => {
-    const result = await useCase.execute({ number: 1 });
+    const command = new RegisterHotDeskCommand(1);
+    const result = await useCase.execute(command);
     expect(result.number.getValue()).toBe(1);
   });
 
   it('should throw a duplicate error when registering the same number', async () => {
-    await useCase.execute({ number: 2 });
-    await expect(useCase.execute({ number: 2 })).rejects.toThrow();
+    const command = new RegisterHotDeskCommand(2);
+    await useCase.execute(command);
+    await expect(useCase.execute(command)).rejects.toThrow();
   });
 });

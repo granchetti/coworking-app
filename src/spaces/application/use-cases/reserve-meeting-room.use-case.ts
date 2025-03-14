@@ -1,14 +1,11 @@
 import { MeetingRoomReservation } from '../../domain/entities/meeting-room-reservation.entity';
-import { IMeetingRoomReservationRepository } from '../../domain/repositories/meeting-room-reservation.repository.interface';
 import { IMeetingRoomRepository } from '../../domain/repositories/meeting-room.repository.interface';
+import { IMeetingRoomReservationRepository } from '../../domain/repositories/meeting-room-reservation.repository.interface';
+import { InMemoryHotDeskReservationRepository } from '../../infrastructure/repositories/inmemory-hotdesk-reservation.repository';
 import { InMemoryHotDeskRepository } from '../../infrastructure/repositories/inmemory-hotdesk.repository';
-import { ReservationDate } from '../../domain/value-objects/reservation-date.value-object';
-import { ReservationHour } from '../../domain/value-objects/reservation-hour.value-object';
-import { ReservationDuration } from '../../domain/value-objects/reservation-duration.value-object';
-import { Uuid } from '../../../common/value-objects/entity-id.value-object';
 import { MeetingRoomReservationValidationService } from '../../domain/services/meeting-room-reservation-validation.service';
 import { HotDeskAssignmentService } from '../../domain/services/hotdesk-assignment.service';
-import { InMemoryHotDeskReservationRepository } from '../../infrastructure/repositories/inmemory-hotdesk-reservation.repository';
+import { ReserveMeetingRoomCommand } from '../commands/reserve-meeting-room.command';
 
 export class ReserveMeetingRoomUseCase {
   private validationService = new MeetingRoomReservationValidationService();
@@ -21,39 +18,36 @@ export class ReserveMeetingRoomUseCase {
     private hotDeskRepository: InMemoryHotDeskRepository,
   ) {}
 
-  public async execute(input: {
-    meetingRoomId: string;
-    date: string;
-    hour: number;
-    duration: number;
-    userId: string;
-  }): Promise<MeetingRoomReservation> {
+  public async execute(
+    command: ReserveMeetingRoomCommand,
+  ): Promise<MeetingRoomReservation> {
     if (
-      !input.meetingRoomId ||
-      !input.date ||
-      input.hour === undefined ||
-      input.duration === undefined ||
-      !input.userId
+      !command.meetingRoomId ||
+      !command.date ||
+      command.hour === undefined ||
+      command.duration === undefined ||
+      !command.userId
     ) {
       throw new Error('Invalid input data');
     }
 
-    const reservationDate = new ReservationDate(input.date);
-    const reservationHour = new ReservationHour(input.hour);
-    const reservationDuration = new ReservationDuration(input.duration);
+    const reservationDate = command.date;
+    const reservationHour = command.hour;
+    const reservationDuration = command.duration;
+    const meetingRoomId = command.meetingRoomId;
+    const userId = command.userId;
 
     this.validationService.validateForToday(reservationDate, reservationHour);
 
-    const meetingRoom = await this.meetingRoomRepository.findById(
-      new Uuid(input.meetingRoomId),
-    );
+    const meetingRoom =
+      await this.meetingRoomRepository.findById(meetingRoomId);
     if (!meetingRoom) {
       throw new Error('Meeting room not found');
     }
 
     const existingReservations =
       await this.meetingRoomReservationRepository.findByMeetingRoom(
-        new Uuid(input.meetingRoomId),
+        meetingRoomId,
         reservationDate,
       );
     this.validationService.validateOverlapping(
@@ -69,16 +63,16 @@ export class ReserveMeetingRoomUseCase {
     );
 
     const reservation = MeetingRoomReservation.create(
-      new Uuid(input.userId),
+      userId,
       reservationDate,
-      new Uuid(input.meetingRoomId),
+      meetingRoomId,
       reservationHour,
       reservationDuration,
     );
 
     const complimentaryHotDeskId =
       await this.hotDeskAssignmentService.assignHotDesk(
-        new Uuid(input.userId),
+        userId,
         reservationDate,
         this.hotDeskRepository,
         this.hotDeskReservationRepository,
