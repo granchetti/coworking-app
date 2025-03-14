@@ -1,11 +1,8 @@
 import { Module } from '@nestjs/common';
-import { HotDeskController } from './spaces/ui/controllers/hotdesk.controller';
-import { MeetingRoomController } from './spaces/ui/controllers/meeting-room.controller';
-import { OfficeController } from './spaces/ui/controllers/office.controller';
+import { MembershipModule } from './membership/membership.module';
+import { SpacesModule } from './spaces/spaces.module';
 
 @Module({
-  imports: [],
-  controllers: [HotDeskController, MeetingRoomController, OfficeController],
-  providers: [],
+  imports: [MembershipModule, SpacesModule],
 })
 export class AppModule {}

@@ -10,6 +10,7 @@ import { InMemoryOfficeRepository } from '../../infrastructure/repositories/inme
 import { DuplicateOfficeException } from '../../domain/exceptions/duplicate-office.exception';
 import { toOfficeRoomResponseDto } from '../mappers/office.mapper';
 import { StatusType } from '../../domain/value-objects/shared/status.value-object';
+import { RegisterOfficeCommand } from '../../application/commands/register-office.command';
 
 @Controller('office')
 export class OfficeController {
@@ -25,7 +26,12 @@ export class OfficeController {
     @Body() body: { number: number; leasePeriod?: number; status?: StatusType },
   ) {
     try {
-      const office = await this.registerOfficeUseCase.execute(body);
+      const command = new RegisterOfficeCommand(
+        body.number,
+        body.leasePeriod,
+        body.status,
+      );
+      const office = await this.registerOfficeUseCase.execute(command);
       return toOfficeRoomResponseDto(office);
     } catch (error) {
       if (error instanceof DuplicateOfficeException) {

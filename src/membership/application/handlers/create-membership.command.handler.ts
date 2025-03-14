@@ -5,16 +5,23 @@ import { MembershipCreatedEvent } from '../../domain/events/membership-created.e
 import { IEventPublisher } from '../../../common/ports/event-publisher.interface';
 import { IMembershipEventStoreRepository } from '../../domain/repositories/membership-event-store.repository.interface';
 import { IMembershipReadRepository } from '../../domain/repositories/membership-read.repository.interface';
+import { Injectable, Inject } from '@nestjs/common';
 
+@Injectable()
 export class CreateMembershipCommandHandler {
   constructor(
+    @Inject('IMembershipEventStoreRepository')
     private eventStoreRepository: IMembershipEventStoreRepository,
+    @Inject('IMembershipReadRepository')
     private readRepository: IMembershipReadRepository,
+    @Inject('IEventPublisher')
     private eventPublisher: IEventPublisher,
   ) {}
 
   public async execute(command: CreateMembershipCommand): Promise<Membership> {
-    const existing = await this.readRepository.findByUserId(command.userId);
+    const existing = await this.readRepository.findByUserId(
+      command.userId.getValue(),
+    );
     if (existing) {
       throw new DuplicateMembershipException();
     }

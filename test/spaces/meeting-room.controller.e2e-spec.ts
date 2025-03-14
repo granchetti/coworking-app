@@ -1,8 +1,8 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { INestApplication, HttpStatus } from '@nestjs/common';
 import * as request from 'supertest';
-import { AppModule } from '../../../src/app.module';
-import { Uuid } from '../../../src/common/value-objects/entity-id.value-object';
+import { AppModule } from '../../src/app.module';
+import { Uuid } from '../../src/common/value-objects/entity-id.value-object';
 
 describe('MeetingRoomController (e2e)', () => {
   let app: INestApplication;

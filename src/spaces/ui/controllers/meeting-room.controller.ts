@@ -10,12 +10,16 @@ import { RegisterMeetingRoomUseCase } from '../../application/use-cases/register
 import { ReserveMeetingRoomUseCase } from '../../application/use-cases/reserve-meeting-room.use-case';
 import { InMemoryMeetingRoomRepository } from '../../infrastructure/repositories/inmemory-meeting-room.repository';
 import { InMemoryMeetingRoomReservationRepository } from '../../infrastructure/repositories/inmemory-meeting-room-reservation.repository';
-import { InMemoryHotDeskReservationRepository } from '../../infrastructure/repositories/inmemory-hotdesk-reservation.repository';
-import { InMemoryHotDeskRepository } from '../../infrastructure/repositories/inmemory-hotdesk.repository';
 import { DuplicateMeetingRoomException } from '../../domain/exceptions/duplicate-meeting-room.exception';
 import { toMeetingRoomResponseDto } from '../mappers/meeting-room.mapper';
 import { toMeetingRoomReservationResponseDto } from '../mappers/meeting-room-reservation.mapper';
 import { MeetingRoom } from '../../domain/entities/meeting-room.entity';
+import { Uuid } from '../../../common/value-objects/entity-id.value-object';
+import { ReserveMeetingRoomCommand } from '../../application/commands/reserve-meeting-room.command';
+import { ReservationDate } from '../../domain/value-objects/reservation-date.value-object';
+import { ReservationDuration } from '../../domain/value-objects/reservation-duration.value-object';
+import { ReservationHour } from '../../domain/value-objects/reservation-hour.value-object';
+import { RegisterMeetingRoomCommand } from '../../application/commands/register-meeting-room.command';
 
 @Controller('meeting-rooms')
 export class MeetingRoomController {
@@ -32,8 +36,7 @@ export class MeetingRoomController {
     this.reserveMeetingRoomUseCase = new ReserveMeetingRoomUseCase(
       repository,
       new InMemoryMeetingRoomReservationRepository(),
-      new InMemoryHotDeskReservationRepository(),
-      new InMemoryHotDeskRepository(),
+      { publish: async () => {} },
     );
   }
 
@@ -52,7 +55,9 @@ export class MeetingRoomController {
   @Post('register')
   async register(@Body() body: { name: string; capacity: number }) {
     try {
-      const meetingRoom = await this.registerMeetingRoomUseCase.execute(body);
+      const command = new RegisterMeetingRoomCommand(body.name, body.capacity);
+      const meetingRoom =
+        await this.registerMeetingRoomUseCase.execute(command);
       return toMeetingRoomResponseDto(meetingRoom);
     } catch (error) {
       if (error instanceof DuplicateMeetingRoomException) {
@@ -80,7 +85,14 @@ export class MeetingRoomController {
     },
   ) {
     try {
-      const reservation = await this.reserveMeetingRoomUseCase.execute(body);
+      const command = new ReserveMeetingRoomCommand(
+        new Uuid(body.meetingRoomId),
+        new ReservationDate(body.date),
+        new ReservationHour(body.hour),
+        new ReservationDuration(body.duration),
+        new Uuid(body.userId),
+      );
+      const reservation = await this.reserveMeetingRoomUseCase.execute(command);
       return toMeetingRoomReservationResponseDto(reservation);
     } catch (error) {
       throw new HttpException(
