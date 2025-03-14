@@ -1,4 +1,4 @@
-import { IEventPublisher } from '../../domain/ports/event-publisher.interface';
+import { IEventPublisher } from '../../../common/ports/event-publisher.interface';
 
 export class EventPublisherAdapter implements IEventPublisher {
   async publish(event: any): Promise<void> {

@@ -1,21 +1,18 @@
 import { MeetingRoomReservation } from '../../domain/entities/meeting-room-reservation.entity';
 import { IMeetingRoomRepository } from '../../domain/repositories/meeting-room.repository.interface';
 import { IMeetingRoomReservationRepository } from '../../domain/repositories/meeting-room-reservation.repository.interface';
-import { InMemoryHotDeskReservationRepository } from '../../infrastructure/repositories/inmemory-hotdesk-reservation.repository';
-import { InMemoryHotDeskRepository } from '../../infrastructure/repositories/inmemory-hotdesk.repository';
 import { MeetingRoomReservationValidationService } from '../../domain/services/meeting-room-reservation-validation.service';
-import { HotDeskAssignmentService } from '../../domain/services/hotdesk-assignment.service';
 import { ReserveMeetingRoomCommand } from '../commands/reserve-meeting-room.command';
+import { IEventPublisher } from 'src/common/ports/event-publisher.interface';
+import { MeetingRoomReservedEvent } from '../../domain/events/meeting-room-reserved.event';
 
 export class ReserveMeetingRoomUseCase {
   private validationService = new MeetingRoomReservationValidationService();
-  private hotDeskAssignmentService = new HotDeskAssignmentService();
 
   constructor(
     private meetingRoomRepository: IMeetingRoomRepository,
     private meetingRoomReservationRepository: IMeetingRoomReservationRepository,
-    private hotDeskReservationRepository: InMemoryHotDeskReservationRepository,
-    private hotDeskRepository: InMemoryHotDeskRepository,
+    private eventPublisher: IEventPublisher,
   ) {}
 
   public async execute(
@@ -70,18 +67,15 @@ export class ReserveMeetingRoomUseCase {
       reservationDuration,
     );
 
-    const complimentaryHotDeskId =
-      await this.hotDeskAssignmentService.assignHotDesk(
-        userId,
-        reservationDate,
-        this.hotDeskRepository,
-        this.hotDeskReservationRepository,
-      );
-    if (complimentaryHotDeskId) {
-      reservation.assignComplimentaryHotDesk(complimentaryHotDeskId);
-    }
-
     await this.meetingRoomReservationRepository.save(reservation);
+
+    const event = new MeetingRoomReservedEvent(
+      userId,
+      meetingRoomId,
+      reservationDate,
+    );
+    await this.eventPublisher.publish(event);
+
     return reservation;
   }
 }

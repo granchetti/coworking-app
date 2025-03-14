@@ -1,41 +1,32 @@
 import { ReserveMeetingRoomUseCase } from './reserve-meeting-room.use-case';
 import { InMemoryMeetingRoomRepository } from '../../infrastructure/repositories/inmemory-meeting-room.repository';
 import { InMemoryMeetingRoomReservationRepository } from '../../infrastructure/repositories/inmemory-meeting-room-reservation.repository';
-import { InMemoryHotDeskReservationRepository } from '../../infrastructure/repositories/inmemory-hotdesk-reservation.repository';
-import { InMemoryHotDeskRepository } from '../../infrastructure/repositories/inmemory-hotdesk.repository';
 import { ReserveMeetingRoomCommand } from '../commands/reserve-meeting-room.command';
 import { Uuid } from '../../../common/value-objects/entity-id.value-object';
 import { ReservationDate } from '../../domain/value-objects/reservation-date.value-object';
 import { MeetingRoom } from '../../domain/entities/meeting-room.entity';
-import { HotDesk } from '../../domain/entities/hotdesk.entity';
-import { ReservationHour } from 'src/spaces/domain/value-objects/reservation-hour.value-object';
-import { ReservationDuration } from 'src/spaces/domain/value-objects/reservation-duration.value-object';
+import { ReservationHour } from '../../domain/value-objects/reservation-hour.value-object';
+import { ReservationDuration } from '../../domain/value-objects/reservation-duration.value-object';
+import { IEventPublisher } from '../../../common/ports/event-publisher.interface';
 
 describe('ReserveMeetingRoomUseCase', () => {
   let meetingRoomRepository: InMemoryMeetingRoomRepository;
   let meetingRoomReservationRepository: InMemoryMeetingRoomReservationRepository;
-  let hotDeskReservationRepository: InMemoryHotDeskReservationRepository;
-  let hotDeskRepository: InMemoryHotDeskRepository;
+  let eventPublisher: IEventPublisher;
   let useCase: ReserveMeetingRoomUseCase;
 
   beforeEach(async () => {
     meetingRoomRepository = new InMemoryMeetingRoomRepository();
     meetingRoomReservationRepository =
       new InMemoryMeetingRoomReservationRepository();
-    hotDeskReservationRepository = new InMemoryHotDeskReservationRepository();
-    hotDeskRepository = new InMemoryHotDeskRepository();
 
     const meetingRoom = MeetingRoom.create('Meeting Room A', 20);
     await meetingRoomRepository.save(meetingRoom);
 
-    const hotDesk = HotDesk.create(1);
-    await hotDeskRepository.save(hotDesk);
-
     useCase = new ReserveMeetingRoomUseCase(
       meetingRoomRepository,
       meetingRoomReservationRepository,
-      hotDeskReservationRepository,
-      hotDeskRepository,
+      eventPublisher,
     );
   });
 

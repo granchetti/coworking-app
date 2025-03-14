@@ -2,7 +2,7 @@ import { CreateMembershipCommand } from '../commands/create-membership.command';
 import { Membership } from '../../domain/entities/membership.entity';
 import { DuplicateMembershipException } from '../../domain/exceptions/duplicate-membership.exception';
 import { MembershipCreatedEvent } from '../../domain/events/membership-created.event';
-import { IEventPublisher } from '../../domain/ports/event-publisher.interface';
+import { IEventPublisher } from '../../../common/ports/event-publisher.interface';
 import { IMembershipEventStoreRepository } from '../../domain/repositories/membership-event-store.repository.interface';
 import { IMembershipReadRepository } from '../../domain/repositories/membership-read.repository.interface';
 
