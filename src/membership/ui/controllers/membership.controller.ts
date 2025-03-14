@@ -10,24 +10,12 @@ import { CreateMembershipCommandHandler } from '../../application/handlers/creat
 import { toMembershipResponseDto } from '../mappers/membership.mapper';
 import { Uuid } from '../../../common/value-objects/entity-id.value-object';
 import { DuplicateMembershipException } from '../../domain/exceptions/duplicate-membership.exception';
-import { EventPublisherAdapter } from '../../infrastructure/adapters/event-publisher.adapter';
-import { InMemoryMembershipEventStoreRepository } from '../../infrastructure/repositories/inmemory-membership-event-store.repository';
-import { InMemoryMembershipReadRepository } from '../../infrastructure/repositories/inmemory-membership-read.repository';
 
 @Controller('memberships')
 export class MembershipController {
-  private readonly createMembershipCommandHandler: CreateMembershipCommandHandler;
-
-  constructor() {
-    const eventStoreRepo = new InMemoryMembershipEventStoreRepository();
-    const readRepo = new InMemoryMembershipReadRepository();
-    const eventPublisher = new EventPublisherAdapter();
-    this.createMembershipCommandHandler = new CreateMembershipCommandHandler(
-      eventStoreRepo,
-      readRepo,
-      eventPublisher,
-    );
-  }
+  constructor(
+    private readonly createMembershipCommandHandler: CreateMembershipCommandHandler,
+  ) {}
 
   @Post('create')
   async create(@Body() body: { userId: string }) {
