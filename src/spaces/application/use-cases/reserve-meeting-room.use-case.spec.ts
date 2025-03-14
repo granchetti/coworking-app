@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { ReserveMeetingRoomUseCase } from './reserve-meeting-room.use-case';
 import { InMemoryMeetingRoomRepository } from '../../infrastructure/repositories/inmemory-meeting-room.repository';
 import { InMemoryMeetingRoomReservationRepository } from '../../infrastructure/repositories/inmemory-meeting-room-reservation.repository';
@@ -9,10 +10,15 @@ import { ReservationHour } from '../../domain/value-objects/reservation-hour.val
 import { ReservationDuration } from '../../domain/value-objects/reservation-duration.value-object';
 import { IEventPublisher } from '../../../common/ports/event-publisher.interface';
 
+const fakeEventPublisher: IEventPublisher = {
+  publish: async (_event: any): Promise<void> => {
+    return;
+  },
+};
+
 describe('ReserveMeetingRoomUseCase', () => {
   let meetingRoomRepository: InMemoryMeetingRoomRepository;
   let meetingRoomReservationRepository: InMemoryMeetingRoomReservationRepository;
-  let eventPublisher: IEventPublisher;
   let useCase: ReserveMeetingRoomUseCase;
 
   beforeEach(async () => {
@@ -26,7 +32,7 @@ describe('ReserveMeetingRoomUseCase', () => {
     useCase = new ReserveMeetingRoomUseCase(
       meetingRoomRepository,
       meetingRoomReservationRepository,
-      eventPublisher,
+      fakeEventPublisher,
     );
   });
 
@@ -37,7 +43,7 @@ describe('ReserveMeetingRoomUseCase', () => {
       new ReservationDate('2099-12-31'),
       new ReservationHour(10),
       new ReservationDuration(2),
-      new Uuid('00000000-0000-0000-0000-000000000003'),
+      new Uuid(),
     );
     const reservation = await useCase.execute(command);
     expect(reservation.meetingRoomId.getValue()).toBe(meetingRoomId.getValue());

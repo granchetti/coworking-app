@@ -4,12 +4,14 @@ import { DuplicateMembershipException } from '../../domain/exceptions/duplicate-
 import { EventPublisherAdapter } from '../../infrastructure/adapters/event-publisher.adapter';
 import { InMemoryMembershipEventStoreRepository } from '../../infrastructure/repositories/inmemory-membership-event-store.repository';
 import { InMemoryMembershipReadRepository } from '../../infrastructure/repositories/inmemory-membership-read.repository';
+import { Uuid } from '../../../common/value-objects/entity-id.value-object';
 
 describe('CreateMembershipCommandHandler', () => {
   let handler: CreateMembershipCommandHandler;
   let eventStoreRepo: InMemoryMembershipEventStoreRepository;
   let readRepo: InMemoryMembershipReadRepository;
   let eventPublisher: EventPublisherAdapter;
+  let userId: Uuid;
 
   beforeEach(() => {
     eventStoreRepo = new InMemoryMembershipEventStoreRepository();
@@ -25,25 +27,27 @@ describe('CreateMembershipCommandHandler', () => {
   });
 
   it('should create a membership successfully when valid data is provided', async () => {
-    const command = new CreateMembershipCommand('user-123');
+    userId = new Uuid();
+    const command = new CreateMembershipCommand(userId);
     const membership = await handler.execute(command);
 
-    expect(membership.userId).toBe('user-123');
+    expect(membership.userId).toBe(userId);
     expect(membership.active).toBe(true);
     expect(membership.createdAt.getValue()).toBeDefined();
     expect(eventPublisher.publish).toHaveBeenCalledWith(
       expect.objectContaining({
-        membershipId: membership.id.getValue(),
-        userId: 'user-123',
+        aggregateId: { value: membership.id.getValue() },
+        userId: { value: userId.getValue() },
       }),
     );
   });
 
   it('should throw an error if a membership already exists for the same user', async () => {
-    const command = new CreateMembershipCommand('user-456');
-    // Create first membership successfully.
+    userId = new Uuid();
+    const command = new CreateMembershipCommand(userId);
     await handler.execute(command);
-    // A second attempt should throw.
-    await expect(handler.execute(command)).rejects.toThrow(DuplicateMembershipException);
+    await expect(handler.execute(command)).rejects.toThrow(
+      DuplicateMembershipException,
+    );
   });
 });

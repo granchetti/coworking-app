@@ -3,19 +3,19 @@ import { Timestamp } from '../../../common/value-objects/timestamp.value-object'
 
 export class Membership {
   private readonly _id: Uuid;
-  private readonly _userId: string;
+  private readonly _userId: Uuid;
   private _active: boolean;
   private readonly _createdAt: Timestamp;
 
-  private constructor(userId: string) {
+  private constructor(userId: Uuid) {
     this._id = new Uuid();
     this._userId = userId;
     this._active = true;
     this._createdAt = new Timestamp();
   }
 
-  public static create(userId: string): Membership {
-    if (!userId || userId.trim() === '') {
+  public static create(userId: Uuid): Membership {
+    if (!userId || userId.getValue().trim() === '') {
       throw new Error('Invalid userId');
     }
     return new Membership(userId);
@@ -25,7 +25,7 @@ export class Membership {
     return this._id;
   }
 
-  public get userId(): string {
+  public get userId(): Uuid {
     return this._userId;
   }
 

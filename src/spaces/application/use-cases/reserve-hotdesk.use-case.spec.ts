@@ -20,6 +20,7 @@ describe('ReserveHotDeskUseCase', () => {
   let hotDeskReservationRepository: InMemoryHotDeskReservationRepository;
   let membershipService: FakeMembershipService;
   let useCase: ReserveHotDeskUseCase;
+  const userId = new Uuid();
 
   beforeEach(() => {
     hotDeskReservationRepository = new InMemoryHotDeskReservationRepository();
@@ -32,7 +33,7 @@ describe('ReserveHotDeskUseCase', () => {
 
   it('should reserve a hot desk successfully when valid data is provided', async () => {
     const command = new ReserveHotDeskCommand(
-      new Uuid('00000000-0000-0000-0000-000000000001'),
+      userId,
       new ReservationDate('2099-12-31'),
     );
     const reservation = await useCase.execute(command);
@@ -44,7 +45,7 @@ describe('ReserveHotDeskUseCase', () => {
 
   it('should throw an error if the user already has a hot desk reservation for that date', async () => {
     const command = new ReserveHotDeskCommand(
-      new Uuid('00000000-0000-0000-0000-000000000002'),
+      userId,
       new ReservationDate('2099-12-31'),
     );
     await useCase.execute(command);

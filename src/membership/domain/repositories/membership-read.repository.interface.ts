@@ -1,13 +1,7 @@
+import { Uuid } from '../../../common/value-objects/entity-id.value-object';
 import { Membership } from '../entities/membership.entity';
 
 export interface IMembershipReadRepository {
-  /**
-   * Retrieves a membership by userId.
-   */
-  findByUserId(userId: string): Promise<Membership | null>;
-
-  /**
-   * Persists or updates the membership in the read model.
-   */
+  findByUserId(id: Uuid): Promise<Membership | null>;
   save(membership: Membership): Promise<void>;
 }

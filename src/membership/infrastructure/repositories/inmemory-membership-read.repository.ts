@@ -1,12 +1,13 @@
 import { IMembershipReadRepository } from '../../domain/repositories/membership-read.repository.interface';
 import { Membership } from '../../domain/entities/membership.entity';
+import { Uuid } from '../../../common/value-objects/entity-id.value-object';
 
 export class InMemoryMembershipReadRepository
   implements IMembershipReadRepository
 {
   private memberships: Membership[] = [];
 
-  async findByUserId(userId: string): Promise<Membership | null> {
+  async findByUserId(userId: Uuid): Promise<Membership | null> {
     return this.memberships.find((m) => m.userId === userId) || null;
   }
 
