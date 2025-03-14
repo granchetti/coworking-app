@@ -1,4 +1,4 @@
-import { Uuid } from '../../domain/value-objects/shared/entity-id.value-object';
+import { Uuid } from '../../../common/value-objects/entity-id.value-object';
 import { HotDesk } from '../../domain/entities/hotdesk.entity';
 import { IHotDeskRepository } from '../../domain/repositories/hotdesk.repository.interface';
 import { HotDeskNumber } from '../../domain/value-objects/hotdesk-number.value-object';

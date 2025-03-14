@@ -2,7 +2,7 @@ import { FakeInMemoryHotDeskRepository } from '../../infrastructure/repositories
 import { HotDeskReservation } from '../entities/hotdesk-reservation.entity';
 import { HotDesk } from '../entities/hotdesk.entity';
 import { ReservationDate } from '../value-objects/reservation-date.value-object';
-import { Uuid } from '../value-objects/shared/entity-id.value-object';
+import { Uuid } from '../../../common/value-objects/entity-id.value-object';
 import { HotDeskAssignmentService } from './hotdesk-assignment.service';
 import { FakeInMemoryHotDeskReservationRepository } from '../../infrastructure/repositories/fake-inmemory-hotdesk-reservation.repository';
 

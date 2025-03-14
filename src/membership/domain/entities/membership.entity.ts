@@ -1,20 +1,23 @@
-import { Uuid } from '../../../spaces/domain/value-objects/shared/entity-id.value-object';
-import { Timestamp } from '../../../spaces/domain/value-objects/shared/timestamp.value-object';
+import { Uuid } from '../../../common/value-objects/entity-id.value-object';
+import { Timestamp } from '../../../common/value-objects/timestamp.value-object';
 
 export class Membership {
   private readonly _id: Uuid;
-  private readonly _userId: Uuid;
+  private readonly _userId: string;
   private _active: boolean;
   private readonly _createdAt: Timestamp;
 
   private constructor(userId: string) {
     this._id = new Uuid();
-    this._userId = new Uuid(userId);
+    this._userId = userId;
     this._active = true;
     this._createdAt = new Timestamp();
   }
 
   public static create(userId: string): Membership {
+    if (!userId || userId.trim() === '') {
+      throw new Error('Invalid userId');
+    }
     return new Membership(userId);
   }
 
@@ -22,7 +25,7 @@ export class Membership {
     return this._id;
   }
 
-  public get userId(): Uuid {
+  public get userId(): string {
     return this._userId;
   }
 

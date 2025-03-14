@@ -1,6 +1,6 @@
 import { MeetingRoomReservation } from '../../domain/entities/meeting-room-reservation.entity';
 import { IReservationRepository } from './reservation.repository.interface';
-import { Uuid } from '../value-objects/shared/entity-id.value-object';
+import { Uuid } from '../../../common/value-objects/entity-id.value-object';
 import { ReservationDate } from '../value-objects/reservation-date.value-object';
 
 export interface IMeetingRoomReservationRepository

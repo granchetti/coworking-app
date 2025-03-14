@@ -1,6 +1,6 @@
 import { HotDesk } from '../../domain/entities/hotdesk.entity';
 import { MeetingRoom } from '../../domain/entities/meeting-room.entity';
-import { Uuid } from '../../domain/value-objects/shared/entity-id.value-object';
+import { Uuid } from '../../../common/value-objects/entity-id.value-object';
 import { InMemoryHotDeskReservationRepository } from '../../infrastructure/repositories/inmemory-hotdesk-reservation.repository';
 import { InMemoryHotDeskRepository } from '../../infrastructure/repositories/inmemory-hotdesk.repository';
 import { InMemoryMeetingRoomReservationRepository } from '../../infrastructure/repositories/inmemory-meeting-room-reservation.repository';

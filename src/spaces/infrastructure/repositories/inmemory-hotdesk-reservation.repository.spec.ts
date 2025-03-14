@@ -1,6 +1,6 @@
 import { HotDeskReservation } from '../../domain/entities/hotdesk-reservation.entity';
 import { ReservationDate } from '../../domain/value-objects/reservation-date.value-object';
-import { Uuid } from '../../domain/value-objects/shared/entity-id.value-object';
+import { Uuid } from '../../../common/value-objects/entity-id.value-object';
 import { InMemoryHotDeskReservationRepository } from './inmemory-hotdesk-reservation.repository';
 
 describe('InMemoryHotDeskReservationRepository', () => {

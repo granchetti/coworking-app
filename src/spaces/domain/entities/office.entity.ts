@@ -1,5 +1,5 @@
-import { Uuid } from '../../domain/value-objects/shared/entity-id.value-object';
-import { Timestamp } from '../../domain/value-objects/shared/timestamp.value-object';
+import { Uuid } from '../../../common/value-objects/entity-id.value-object';
+import { Timestamp } from '../../../common/value-objects/timestamp.value-object';
 import {
   Status,
   StatusType,

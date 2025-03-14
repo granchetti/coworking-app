@@ -1,6 +1,6 @@
 import { IHotDeskReservationRepository } from '../../domain/repositories/hotdesk-reservation.repository.interface';
 import { HotDeskReservation } from '../../domain/entities/hotdesk-reservation.entity';
-import { Uuid } from '../../domain/value-objects/shared/entity-id.value-object';
+import { Uuid } from '../../../common/value-objects/entity-id.value-object';
 import { ReservationDate } from '../../domain/value-objects/reservation-date.value-object';
 
 export class InMemoryHotDeskReservationRepository

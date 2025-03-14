@@ -1,7 +1,7 @@
 import { ReservationDate } from '../value-objects/reservation-date.value-object';
 import { ReservationDuration } from '../value-objects/reservation-duration.value-object';
 import { ReservationHour } from '../value-objects/reservation-hour.value-object';
-import { Uuid } from '../value-objects/shared/entity-id.value-object';
+import { Uuid } from '../../../common/value-objects/entity-id.value-object';
 import { MeetingRoomReservation } from './meeting-room-reservation.entity';
 
 describe('MeetingRoomReservation Entity', () => {

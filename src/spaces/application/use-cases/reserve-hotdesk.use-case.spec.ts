@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { IMembershipService } from 'src/spaces/domain/ports/membership.service.interface';
-import { Uuid } from '../../domain/value-objects/shared/entity-id.value-object';
+import { Uuid } from '../../../common/value-objects/entity-id.value-object';
 import { InMemoryHotDeskReservationRepository } from '../../infrastructure/repositories/inmemory-hotdesk-reservation.repository';
 import { ReserveHotDeskUseCase } from './reserve-hotdesk.use-case';
 

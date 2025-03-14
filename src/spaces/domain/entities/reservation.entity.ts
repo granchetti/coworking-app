@@ -1,7 +1,7 @@
 import { ReservationDate } from '../value-objects/reservation-date.value-object';
-import { Uuid } from '../value-objects/shared/entity-id.value-object';
+import { Uuid } from '../../../common/value-objects/entity-id.value-object';
 import { Status } from '../value-objects/shared/status.value-object';
-import { Timestamp } from '../value-objects/shared/timestamp.value-object';
+import { Timestamp } from '../../../common/value-objects/timestamp.value-object';
 
 export abstract class Reservation {
   protected readonly _id: Uuid;

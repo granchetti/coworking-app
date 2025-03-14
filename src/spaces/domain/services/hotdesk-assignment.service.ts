@@ -1,7 +1,7 @@
 import { IHotDeskRepository } from '../../domain/repositories/hotdesk.repository.interface';
 import { IHotDeskReservationRepository } from '../../domain/repositories/hotdesk-reservation.repository.interface';
 import { ReservationDate } from '../value-objects/reservation-date.value-object';
-import { Uuid } from '../value-objects/shared/entity-id.value-object';
+import { Uuid } from '../../../common/value-objects/entity-id.value-object';
 
 export class HotDeskAssignmentService {
   public async assignHotDesk(

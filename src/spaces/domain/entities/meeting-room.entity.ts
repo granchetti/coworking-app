@@ -1,5 +1,5 @@
-import { Uuid } from '../value-objects/shared/entity-id.value-object';
-import { Timestamp } from '../value-objects/shared/timestamp.value-object';
+import { Uuid } from '../../../common/value-objects/entity-id.value-object';
+import { Timestamp } from '../../../common/value-objects/timestamp.value-object';
 import { Status } from '../value-objects/shared/status.value-object';
 import { MeetingRoomName } from '../value-objects/meeting-room-name.value-object';
 import { MeetingRoomCapacity } from '../value-objects/meeting-room-capacity.value-object';

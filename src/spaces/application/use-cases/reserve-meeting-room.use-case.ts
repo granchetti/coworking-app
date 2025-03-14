@@ -5,7 +5,7 @@ import { InMemoryHotDeskRepository } from '../../infrastructure/repositories/inm
 import { ReservationDate } from '../../domain/value-objects/reservation-date.value-object';
 import { ReservationHour } from '../../domain/value-objects/reservation-hour.value-object';
 import { ReservationDuration } from '../../domain/value-objects/reservation-duration.value-object';
-import { Uuid } from '../../domain/value-objects/shared/entity-id.value-object';
+import { Uuid } from '../../../common/value-objects/entity-id.value-object';
 import { MeetingRoomReservationValidationService } from '../../domain/services/meeting-room-reservation-validation.service';
 import { HotDeskAssignmentService } from '../../domain/services/hotdesk-assignment.service';
 import { InMemoryHotDeskReservationRepository } from '../../infrastructure/repositories/inmemory-hotdesk-reservation.repository';
