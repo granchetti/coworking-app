@@ -1,5 +1,6 @@
 import { Uuid } from '../../../common/value-objects/entity-id.value-object';
 import { Timestamp } from '../../../common/value-objects/timestamp.value-object';
+import { DuplicatePackageForPeriodException } from '../exceptions/duplicate-package-for-period.exception';
 import { InvalidCreditsException } from '../exceptions/invalid-credits.exception';
 import { InvalidYearMonthException } from '../exceptions/invalid-year-month.exception';
 import { Package } from './package.entity';
@@ -58,6 +59,18 @@ export class Membership {
     ) {
       throw new InvalidYearMonthException();
     }
+
+    const exists = this._packages.some((pkg) => {
+      const pkgStart = pkg.startDate.getValue();
+      return (
+        pkgStart.getFullYear() === year && pkgStart.getMonth() + 1 === month
+      );
+    });
+
+    if (exists) {
+      throw new DuplicatePackageForPeriodException();
+    }
+
     const startDate = new Date(year, month - 1, 1);
     const endDate = new Date(year, month, 0);
     const membershipPackage = Package.create(credits, startDate, endDate);

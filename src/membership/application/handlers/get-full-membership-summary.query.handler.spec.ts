@@ -25,7 +25,6 @@ describe('GetFullMembershipSummaryQueryHandler', () => {
   it('should return the membership summary with total credits', async () => {
     const query = new GetFullMembershipSummaryQuery(userId);
     const summary = await handler.execute(query);
-    console.log(summary);
     expect(summary).toBeDefined();
     expect(summary.id).toBe(membership.id.getValue());
     expect(summary.userId).toBe(userId.getValue());
