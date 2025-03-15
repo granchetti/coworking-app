@@ -6,7 +6,7 @@ export function toHotDeskResponseDto(hotDesk: HotDesk): HotDeskResponseDto {
     id: hotDesk.id.getValue(),
     number: hotDesk.number.getValue(),
     status: hotDesk.status.getValue(),
-    createdAt: hotDesk.createdAt.getValue().toISOString(),
-    updatedAt: hotDesk.updatedAt.getValue().toISOString(),
+    createdAt: hotDesk.createdAt.toISOString(),
+    updatedAt: hotDesk.updatedAt.toISOString(),
   };
 }

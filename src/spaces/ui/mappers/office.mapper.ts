@@ -7,7 +7,7 @@ export function toOfficeRoomResponseDto(office: Office): OfficeResponseDto {
     number: office.number.getValue(),
     leasePeriod: office.leasePeriod.getValue(),
     status: office.status.getValue(),
-    createdAt: office.createdAt.getValue().toISOString(),
-    updatedAt: office.updatedAt.getValue().toISOString(),
+    createdAt: office.createdAt.toISOString(),
+    updatedAt: office.updatedAt.toISOString(),
   };
 }

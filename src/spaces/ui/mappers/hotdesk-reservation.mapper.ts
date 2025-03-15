@@ -9,8 +9,8 @@ export function toHotDeskReservationResponseDto(
     userId: reservation.userId.getValue(),
     date: reservation.date.getValue(),
     status: reservation.status.getValue(),
-    createdAt: reservation.createdAt.getValue().toISOString(),
-    updatedAt: reservation.updatedAt.getValue().toISOString(),
+    createdAt: reservation.createdAt.toISOString(),
+    updatedAt: reservation.updatedAt.toISOString(),
     includedInMembership: reservation.includedInMembership,
   };
 }

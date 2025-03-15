@@ -4,11 +4,13 @@ import { CreateMembershipCommandHandler } from './application/handlers/create-me
 import { InMemoryMembershipEventStoreRepository } from './infrastructure/repositories/inmemory-membership-event-store.repository';
 import { InMemoryMembershipReadRepository } from './infrastructure/repositories/inmemory-membership-read.repository';
 import { EventPublisherAdapter } from './infrastructure/adapters/event-publisher.adapter';
+import { RegisterPackageCommandHandler } from './application/handlers/register-package.command.handler';
 
 @Module({
   controllers: [MembershipController],
   providers: [
     CreateMembershipCommandHandler,
+    RegisterPackageCommandHandler,
     {
       provide: 'IMembershipEventStoreRepository',
       useClass: InMemoryMembershipEventStoreRepository,
@@ -22,6 +24,6 @@ import { EventPublisherAdapter } from './infrastructure/adapters/event-publisher
       useClass: EventPublisherAdapter,
     },
   ],
-  exports: [CreateMembershipCommandHandler],
+  exports: [CreateMembershipCommandHandler, RegisterPackageCommandHandler],
 })
 export class MembershipModule {}

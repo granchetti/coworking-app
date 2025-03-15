@@ -9,7 +9,7 @@ export function toMeetingRoomResponseDto(
     name: meetingRoom.name.getValue(),
     capacity: meetingRoom.capacity.getValue(),
     status: meetingRoom.status.getValue(),
-    createdAt: meetingRoom.createdAt.getValue().toISOString(),
-    updatedAt: meetingRoom.updatedAt.getValue().toISOString(),
+    createdAt: meetingRoom.createdAt.toISOString(),
+    updatedAt: meetingRoom.updatedAt.toISOString(),
   };
 }
