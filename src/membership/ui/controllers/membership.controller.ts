@@ -10,8 +10,8 @@ import { CreateMembershipCommandHandler } from '../../application/handlers/creat
 import { toMembershipResponseDto } from '../mappers/membership.mapper';
 import { Uuid } from '../../../common/value-objects/entity-id.value-object';
 import { DuplicateMembershipException } from '../../domain/exceptions/duplicate-membership.exception';
-import { RegisterPackageCommand } from 'src/membership/application/commands/register-package.command';
-import { RegisterPackageCommandHandler } from 'src/membership/application/handlers/register-package.command.handler';
+import { RegisterPackageCommand } from '../../application/commands/register-package.command';
+import { RegisterPackageCommandHandler } from '../../application/handlers/register-package.command.handler';
 
 @Controller('memberships')
 export class MembershipController {

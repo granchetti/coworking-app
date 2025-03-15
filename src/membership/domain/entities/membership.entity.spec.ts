@@ -20,9 +20,9 @@ describe('Membership Entity', () => {
 
   it('should add a package successfully', () => {
     const membership = Membership.create(validUserId);
-    const pkg = membership.addPackage(100, 2050, 1);
+    const pkg = membership.addPackage(20, 2050, 1);
     expect(pkg).toBeDefined();
-    expect(pkg.credits.getValue()).toBe(100);
+    expect(pkg.credits.getValue()).toBe(20);
     expect(membership.packages).toContain(pkg);
   });
 });

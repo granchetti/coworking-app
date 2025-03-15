@@ -6,6 +6,7 @@ import { Uuid } from '../../../common/value-objects/entity-id.value-object';
 import { InMemoryMembershipEventStoreRepository } from '../../infrastructure/repositories/inmemory-membership-event-store.repository';
 import { InMemoryMembershipReadRepository } from '../../infrastructure/repositories/inmemory-membership-read.repository';
 import { EventPublisherAdapter } from '../../infrastructure/adapters/event-publisher.adapter';
+import { CreditsExceedException } from '../../domain/exceptions/credits-exceed.exception';
 
 describe('RegisterPackageCommandHandler', () => {
   let handler: RegisterPackageCommandHandler;
@@ -42,14 +43,14 @@ describe('RegisterPackageCommandHandler', () => {
   });
 
   it('should register a package successfully when valid data is provided', async () => {
-    const command = new RegisterPackageCommand(membershipId, 100, 2050, 1);
+    const command = new RegisterPackageCommand(membershipId, 31, 2050, 1);
 
     const result = await handler.execute(command);
 
     expect(result).toBe(membership);
     expect(result.packages.length).toBe(1);
     const pkg = result.packages[0];
-    expect(pkg.credits.getValue()).toBe(100);
+    expect(pkg.credits.getValue()).toBe(31);
 
     expect(fakeEventStoreRepo.save).toHaveBeenCalledTimes(1);
     expect(fakeEventPublisher.publish).toHaveBeenCalledTimes(1);
@@ -60,14 +61,21 @@ describe('RegisterPackageCommandHandler', () => {
     expect(publishedEvent).toBeInstanceOf(PackageSubscribedEvent);
     expect(publishedEvent.aggregateId.value).toBe(membership.id.getValue());
     expect(publishedEvent.packageId.value).toBe(pkg.id.getValue());
-    expect(publishedEvent.credits.getValue()).toBe(100);
+    expect(publishedEvent.credits.getValue()).toBe(31);
   });
 
   it('should throw an error if membership is not found', async () => {
     (fakeReadRepo.findById as jest.Mock).mockResolvedValue(null);
-    const command = new RegisterPackageCommand(membershipId, 100, 2050, 1);
+    const command = new RegisterPackageCommand(membershipId, 31, 2050, 1);
     await expect(handler.execute(command)).rejects.toThrow(
       'Membership not found',
+    );
+  });
+
+  it('should throw an error if credits exceed maximum days in month', async () => {
+    const command = new RegisterPackageCommand(membershipId, 32, 2050, 1);
+    await expect(handler.execute(command)).rejects.toThrow(
+      CreditsExceedException,
     );
   });
 });
