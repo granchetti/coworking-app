@@ -1,4 +1,5 @@
 import { v4 as uuidv4, validate as uuidValidate } from 'uuid';
+import { InvalidUuidException } from '../exceptions/invalid-uuid.exception';
 
 export class Uuid {
   private readonly value: string;
@@ -7,11 +8,8 @@ export class Uuid {
     if (value === undefined) {
       this.value = uuidv4();
     } else {
-      if (value.trim() === '') {
-        throw new Error('Invalid userId');
-      }
-      if (!uuidValidate(value)) {
-        throw new Error('Invalid UUID');
+      if (value.trim() === '' || !uuidValidate(value)) {
+        throw new InvalidUuidException();
       }
       this.value = value;
     }

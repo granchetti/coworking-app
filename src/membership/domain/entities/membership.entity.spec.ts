@@ -1,6 +1,7 @@
 import { Membership } from './membership.entity';
 import { Uuid } from '../../../common/value-objects/entity-id.value-object';
 import { DuplicatePackageForPeriodException } from '../exceptions/duplicate-package-for-period.exception';
+import { InvalidUuidException } from '../../../common//exceptions/invalid-uuid.exception';
 
 describe('Membership Entity', () => {
   const validUserId = new Uuid();
@@ -16,7 +17,7 @@ describe('Membership Entity', () => {
   });
 
   it('should throw an error if userId is invalid', () => {
-    expect(() => Membership.create(new Uuid(''))).toThrow('Invalid userId');
+    expect(() => Membership.create(new Uuid(''))).toThrow(InvalidUuidException);
   });
 });
 

@@ -68,6 +68,33 @@ describe('MembershipController (e2e)', () => {
     });
   });
 
+  describe('Membership Summary', () => {
+    it('/memberships/summary (GET) - should return membership summary', async () => {
+      const response = await request(app.getHttpServer())
+        .get('/memberships/summary')
+        .query({ userId })
+        .expect(HttpStatus.OK);
+
+      expect(response.body).toHaveProperty('id');
+      expect(response.body.userId).toBe(userId);
+    });
+
+    it('/memberships/summary (GET) - should return 400 for invalid userId', async () => {
+      await request(app.getHttpServer())
+        .get('/memberships/summary')
+        .query({ userId: '' })
+        .expect(HttpStatus.BAD_REQUEST);
+    });
+
+    it('/memberships/summary (GET) - should return 404 if membership is not found', async () => {
+      const unknownUserId = new Uuid().getValue();
+      await request(app.getHttpServer())
+        .get('/memberships/summary')
+        .query({ userId: unknownUserId })
+        .expect(HttpStatus.NOT_FOUND);
+    });
+  });
+
   afterAll(async () => {
     await app.close();
   });

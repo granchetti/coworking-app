@@ -1,3 +1,4 @@
+import { InvalidUuidException } from '../exceptions/invalid-uuid.exception';
 import { Uuid } from './entity-id.value-object';
 
 describe('Uuid Value Object', () => {
@@ -15,6 +16,6 @@ describe('Uuid Value Object', () => {
   });
 
   it('should throw an error if an invalid UUID is provided', () => {
-    expect(() => new Uuid('invalid-uuid')).toThrow('Invalid UUID');
+    expect(() => new Uuid('invalid-uuid')).toThrow(InvalidUuidException);
   });
 });

@@ -4,6 +4,7 @@ import { CreateMembershipCommandHandler } from './application/handlers/create-me
 import { InMemoryMembershipEventStoreRepository } from './infrastructure/repositories/inmemory-membership-event-store.repository';
 import { InMemoryMembershipReadRepository } from './infrastructure/repositories/inmemory-membership-read.repository';
 import { EventPublisherAdapter } from './infrastructure/adapters/event-publisher.adapter';
+import { GetFullMembershipSummaryQueryHandler } from './application/handlers/get-full-membership-summary.query.handler';
 import { RegisterPackageCommandHandler } from './application/handlers/register-package.command.handler';
 
 @Module({
@@ -11,6 +12,7 @@ import { RegisterPackageCommandHandler } from './application/handlers/register-p
   providers: [
     CreateMembershipCommandHandler,
     RegisterPackageCommandHandler,
+    GetFullMembershipSummaryQueryHandler,
     {
       provide: 'IMembershipEventStoreRepository',
       useClass: InMemoryMembershipEventStoreRepository,
@@ -24,6 +26,10 @@ import { RegisterPackageCommandHandler } from './application/handlers/register-p
       useClass: EventPublisherAdapter,
     },
   ],
-  exports: [CreateMembershipCommandHandler, RegisterPackageCommandHandler],
+  exports: [
+    CreateMembershipCommandHandler,
+    RegisterPackageCommandHandler,
+    GetFullMembershipSummaryQueryHandler,
+  ],
 })
 export class MembershipModule {}
