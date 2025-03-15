@@ -4,7 +4,8 @@ import { IMembershipEventStoreRepository } from '../../domain/repositories/membe
 export class InMemoryMembershipEventStoreRepository
   implements IMembershipEventStoreRepository
 {
-  private events: MembershipCreatedEvent[] = [];
+  private events: any[] = [];
+
   async save(event: MembershipCreatedEvent): Promise<void> {
     this.events.push(event);
   }

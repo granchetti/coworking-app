@@ -1,15 +1,26 @@
 export class Timestamp {
   private readonly date: Date;
 
-  constructor(date?: Date) {
-    this.date = date ? new Date(date) : new Date();
+  constructor(dateInput?: Date | string) {
+    let date: Date;
+    if (!dateInput) {
+      date = new Date();
+    } else if (typeof dateInput === 'string') {
+      date = new Date(dateInput);
+    } else {
+      date = dateInput;
+    }
+    if (isNaN(date.getTime())) {
+      throw new Error('Invalid date');
+    }
+    this.date = date;
   }
 
   public getValue(): Date {
     return this.date;
   }
 
-  public equals(other: Timestamp): boolean {
-    return this.date.getTime() === other.date.getTime();
+  public toISOString(): string {
+    return this.date.toISOString();
   }
 }

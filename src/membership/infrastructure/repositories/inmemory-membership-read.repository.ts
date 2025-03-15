@@ -10,6 +10,12 @@ export class InMemoryMembershipReadRepository
     return this.memberships.find((m) => m.userId.getValue() === userId) || null;
   }
 
+  async findById(membershipId: string): Promise<Membership | null> {
+    return (
+      this.memberships.find((m) => m.id.getValue() === membershipId) || null
+    );
+  }
+
   async save(membership: Membership): Promise<void> {
     this.memberships.push(membership);
   }
