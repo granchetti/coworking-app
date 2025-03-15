@@ -40,7 +40,7 @@ export class MembershipController {
     }
   }
 
-  @Post('package')
+  @Post('register-package')
   async subscribePackage(
     @Body()
     body: {
