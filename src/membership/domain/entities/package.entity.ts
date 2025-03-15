@@ -1,6 +1,8 @@
 import { Timestamp } from '../../../common/value-objects/timestamp.value-object';
 import { Uuid } from '../../../common/value-objects/entity-id.value-object';
 import { Credits } from '../value-objects/credits.value-object';
+import { InvalidPackageDatesException } from '../exceptions/invalid-package-dates.exception';
+import { StartDateInPastException } from '../exceptions/start-date-in-past.exception';
 
 export class Package {
   private readonly _id: Uuid;
@@ -27,6 +29,18 @@ export class Package {
     const creditsVO = new Credits(credits);
     const startTimestamp = new Timestamp(startDate);
     const endTimestamp = new Timestamp(endDate);
+
+    if (
+      endTimestamp.getValue().getTime() <= startTimestamp.getValue().getTime()
+    ) {
+      throw new InvalidPackageDatesException();
+    }
+
+    const today = new Date();
+    if (startTimestamp.getValue().getTime() < today.getTime()) {
+      throw new StartDateInPastException();
+    }
+
     return new Package(creditsVO, startTimestamp, endTimestamp);
   }
 

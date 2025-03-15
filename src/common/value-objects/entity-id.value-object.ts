@@ -4,10 +4,17 @@ export class Uuid {
   private readonly value: string;
 
   constructor(value?: string) {
-    if (value && !uuidValidate(value)) {
-      throw new Error('Invalid UUID');
+    if (value === undefined) {
+      this.value = uuidv4();
+    } else {
+      if (value.trim() === '') {
+        throw new Error('Invalid userId');
+      }
+      if (!uuidValidate(value)) {
+        throw new Error('Invalid UUID');
+      }
+      this.value = value;
     }
-    this.value = value ? value : uuidv4();
   }
 
   public getValue(): string {

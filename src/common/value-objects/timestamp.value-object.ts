@@ -23,4 +23,8 @@ export class Timestamp {
   public toISOString(): string {
     return this.date.toISOString();
   }
+
+  public equals(other: Timestamp): boolean {
+    return this.date.getTime() === other.date.getTime();
+  }
 }

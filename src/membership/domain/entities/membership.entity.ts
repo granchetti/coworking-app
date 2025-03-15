@@ -1,5 +1,7 @@
 import { Uuid } from '../../../common/value-objects/entity-id.value-object';
 import { Timestamp } from '../../../common/value-objects/timestamp.value-object';
+import { InvalidCreditsException } from '../exceptions/invalid-credits.exception';
+import { InvalidYearMonthException } from '../exceptions/invalid-year-month.exception';
 import { Package } from './package.entity';
 
 export class Membership {
@@ -46,7 +48,7 @@ export class Membership {
 
   public addPackage(credits: number, year: number, month: number): Package {
     if (!Number.isInteger(credits) || credits <= 0) {
-      throw new Error('Invalid credits');
+      throw new InvalidCreditsException();
     }
     if (
       !Number.isInteger(year) ||
@@ -54,7 +56,7 @@ export class Membership {
       month < 1 ||
       month > 12
     ) {
-      throw new Error('Invalid year or month');
+      throw new InvalidYearMonthException();
     }
     const startDate = new Date(year, month - 1, 1);
     const endDate = new Date(year, month, 0);
