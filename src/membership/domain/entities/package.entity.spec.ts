@@ -49,7 +49,7 @@ describe('Package Entity', () => {
   it('should throw error if end date is not after start date', () => {
     const sameDate = new Date(2050, 3, 1);
     expect(() => Package.create(31, validStartDate, sameDate)).toThrow(
-      new InvalidPackageDatesException,
+      new InvalidPackageDatesException(),
     );
   });
 
