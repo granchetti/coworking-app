@@ -29,7 +29,6 @@ export class Package {
   ): Package {
     const today = new Date();
 
-    // Validate package dates
     const startTimestamp = new Timestamp(startDate);
     const endTimestamp = new Timestamp(endDate);
     if (
@@ -44,7 +43,6 @@ export class Package {
       throw new StartDateInPastException();
     }
 
-    // Validate credits
     const creditsVO = new Credits(credits);
     const maxDays = new Date(
       startTimestamp.getValue().getFullYear(),
